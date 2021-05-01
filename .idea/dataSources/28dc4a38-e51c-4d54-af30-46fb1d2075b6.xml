@@ -1077,7 +1077,7 @@
       <ObjectGrants>ALL PRIVILEGES!
 </ObjectGrants>
     </user>
-    <table id="342" parent="5" name="table_farmaci"/>
+    <table id="342" parent="5" name="tabella_farmaci"/>
     <column id="343" parent="342" name="minsan">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>

@@ -1,23 +1,26 @@
 <?php
 
-
 class Farmaco
 {
     private $minsan;
     private $nomeProdotto;
     private $prezzo;
+    private $vecchioPrezzo;
     private $descrizione;
     private $img;
     private $linkSito;
+    private $categoria;
 
-    public function __construct($minsan, $nomeProdotto, $prezzo, $descrizione, $img, $linkSito)
+    public function __construct($minsan, $nomeProdotto, $prezzo, $vecchioPrezzo, $descrizione, $img, $linkSito, $categoria)
     {
         $this->minsan = $minsan;
         $this->nomeProdotto = $nomeProdotto;
         $this->prezzo = $prezzo;
+        $this->vecchioPrezzo = $vecchioPrezzo;
         $this->descrizione = $descrizione;
         $this->img = $img;
         $this->linkSito = $linkSito;
+        $this->categoria = $categoria;
     }
 
     public function getMinsan()
@@ -47,6 +50,15 @@ class Farmaco
         $this->prezzo = $prezzo;
     }
 
+    public function getVecchioPrezzo()
+    {
+        return $this->vecchioPrezzo;
+    }
+    public function setVecchioPrezzo($vecchioPrezzo)
+    {
+        $this->vecchioPrezzo = $vecchioPrezzo;
+    }
+
     public function getDescrizione()
     {
         return $this->descrizione;
@@ -72,5 +84,14 @@ class Farmaco
     public function setLinkSito($linkSito)
     {
         $this->linkSito = $linkSito;
+    }
+
+    public function getCategoria()
+    {
+        return $this->categoria;
+    }
+    public function setCategoria($categoria)
+    {
+        $this->categoria = $categoria;
     }
 }
