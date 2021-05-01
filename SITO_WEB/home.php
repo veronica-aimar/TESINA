@@ -17,8 +17,6 @@
 
         <nav class="navbar">
             <div class="inner-width">
-                <a href="/" class="logo"></a>
-                <button class="menu-toggler"></button>
                 <div class="navbar-menu">
                     <a href="#">HOME</a>
                     <a href="#">CHI SIAMO</a>
@@ -33,11 +31,15 @@
         <div class="b1">
             <div class="in1">
                 <div class="textBox">
-					<h2>TITLE</h2>
+					<h2>TITOLO</h2>
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
-					<a href="#">Learn more</a>
+					<div class="input-group">
+                        <input type="search" class="form-control rounded" placeholder="Cerca il prodotto..." aria-label="Search"
+                            aria-describedby="search-addon" />
+                        <button type="button" class="btn btn-outline-primary">CERCA</button>
+                    </div>
 				</div>
             </div>
         </div>

@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 html, body {
 	margin: 0;
 	padding: 0;
 	width: 100%;
-	height: 100%;	
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* ----------------------- NAVBAR ----------------------- */
@@ -30,7 +32,7 @@ html, body {
 
 .logo{
   width: 44px;
-  height: 32px;
+  height: 20px;
   background-image: url(../IMG/);
   background-size: contain;
 }
@@ -56,7 +58,7 @@ html, body {
 }
 
 .navbar-menu a{
-  color: #fff;
+  color: #046fab;
   font-size: 17px;
   font-weight: 700;
   margin-left: 30px;
@@ -64,27 +66,19 @@ html, body {
   padding: 10px;
 }
 
+.navbar-menu a:last-child{
+  border: solid 2px #046fab;
+}
+
 .navbar-menu a:hover{
-  color: #505117 !important;
   text-decoration: none;
-  background-color: #fff;
+  background-color: #046fab;
+  color: white;
 }
 
 .sticky{
-  background-color: #fff;
+  background-color: #046fab;
   padding: 18px 0;
-}
-
-.sticky .logo{
-  background-image: url(../images/black-logo.png);
-}
-
-.sticky .navbar-menu a{
-  color: #111;
-}
-
-.sticky .menu-toggler span{
-  background-color: #111;
 }
 
 /* ----------------------- SFONDO ----------------------- */
@@ -92,9 +86,8 @@ html, body {
 	width: 100%;
 	height: 100%;
 	margin: auto;
-    background: url(../IMG/sfondo.jpg) no-repeat 50% 50%;
-    opacity: .8;
-    top: 0;
+  background: url(../IMG/sfondo.jpg) no-repeat 50% 50%;
+  top: 0;
 	display: table;
 	background-size: cover;
 }
@@ -109,8 +102,8 @@ html, body {
 .b1 .in1 {
 	max-width: 500px;
 	margin-left: auto;
-    text-align: left;
-    align-content: space-between;
+  text-align: left;
+  align-content: space-between;
 }
 
 .b1 .in1 h1 {
@@ -122,38 +115,48 @@ html, body {
 
 .b1 .in1 .textBox {
 	position: relative;
-    max-width: 600px;
+  max-width: 450px;
+  left: 5rem;
 }
 
 .b1 .in1 .textBox h2 {
-	color: white;
+	color: #046fab;
 	font-size: 4em;
 	line-height: 1.4em;
 	font-weight: 500;
 }
 
 .b1 .in1 .textBox h2 span {
-	color: white;
+	color: #046fab;
 	font-size: 1.2em;
 	font-weight: 900;
 }
 
 .b1 .in1 .textBox p {
-	color: white;
+	color: #046fab;
 }
 
-.b1 .in1 .textBox a {
-	display: inline-block;
-	margin-top: 20px;
-	padding: 8px 20px;
-	background: #017143;
-	color: #fff;
-	border-radius: 40px;
-	font-weight: 500;
+.b1 .in1 .textBox button {
+  color: #046fab;
+  margin-left: 5%;
+}
+
+.b1 .in1 .textBox button {
+	border: solid 1px #046fab;
+  color: #046fab;
+  font-weight: 600;
 	letter-spacing: 1px;
 	text-decoration: none;
 }
 
+.b1 .in1 .textBox button:hover {
+	background: #046fab;
+  color: #fff;
+}
+
+.b1 .in1 .textBox .input-group .form-control {
+  max-width: 70%;
+}
 
 /*
 @media screen and (max-width: 980px){
