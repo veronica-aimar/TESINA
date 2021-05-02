@@ -18,7 +18,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <?php include './SRC/PARTIALS/navbar.php'; ?>
 
-    <!-- TESTO PRINICIPALE -->
+    <!-- TESTO HOME -->
     <div class="b1">
         <div class="in1">
             <div class="textBox">
@@ -32,64 +32,40 @@
                 </div>
             </div>
         </div>
+        <hr>
     </div>
 
-    <!-- OFFERTE -->
-    <h3>OFFERTE DEL GIORNO</h3>
+    <!-- OFFERTE DEL GIORNO -->
+    <h1>OFFERTE DEL GIORNO</h1>
     <div class="row">
         <?php
         include('./DB/Farmaco.php');
         include('./DB/DBManager.php');
 
         $rs = DBManager::readAll();
+        echo '<div class="container">';
         foreach ($rs as $farmaco) {
-            $contatore = 0;
             $sconto = (($farmaco['prezzoVecchio'] - $farmaco['prezzo']) * 100 ) / $farmaco['prezzoVecchio'];
             if ($sconto >= 50) {
-            
-                if($contatore == 0) {
-                    echo '<div class="container">
-                        <div class="row">';
-                }
-
-                echo '<div class="col-sm">
-                    <!-- Card -->
-                    <div class="card">
-                        <div class="view zoom overlay">
-                            <img class="img-fluid w-100" src="' . $farmaco['img'] . '" alt="Sample">
-                            <h4 class="mb-0"><span class="badge badge-primary badge-pill badge-news">SCONTO</span></h4>
+                echo '<div class="card">
+                        <div class="view overlay z-depth-2 rounded">
+                            <a href="#">
+                                <img class="img-fluid w-100" src="' . $farmaco['img'] . '" alt="' . $farmaco['nomeProdotto'] . '">
+                            </a>
                         </div>
 
-                        <div class="card-body text-center">
-                            <h5>' . $farmaco['nomeProdotto'] . '</h5>
-                            <!-- CATEGORIA -->
-                            <p class="small text-muted text-uppercase mb-2">' . $farmaco['categoria'] . '</p>
-                            <hr>
+                        <div class="text-center pt-4">
                             <h6 class="mb-3">
-                                <!-- PREZZO SCONTATO / VECCHIO PREZZO -->
-                                <span class="text-danger mr-1">€' . $farmaco['prezzo'] . '</span>
-                                <span class="text-grey"><s>€' . $farmaco['prezzoVecchio'] . '</s></span>
+                                <span class="text-danger mr-1">€' . $farmaco['prezzo']/100 . '</span>
+                                <span class="text-grey"><s>€' . $farmaco['prezzoVecchio']/100 . '</s></span>
                             </h6>
+                            <h5>' . $farmaco['nomeProdotto'] . '</h5>
+                            <p class="small text-muted text-uppercase mb-2">' . $farmaco['categoria'] . '</p>
 
-                            <button type="button" class="btn btn-primary btn-sm mr-1 mb-2">
-                                <i class="fas fa-shopping-cart pr-2"></i>AGGIUNGI AL CARRELLO
-                            </button>
-                            <button type="button" class="btn btn-light btn-sm mr-1 mb-2">
-                                <i class="fas fa-info-circle pr-2"></i>DETTAGLI
-                            </button>
-                            <button type="button" class="btn btn-danger btn-sm px-3 mb-2 material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Add to wishlist">
-                                <i class="far fa-heart"></i>
-                            </button>
-
+                            <button type="button" class="btn btn-primary btn-sm mr-1 mb-2">+ CARRELLO</button>
+                            <button type="button" class="btn btn-danger btn-sm px-3 mb-2"><i class="far fa-heart"></i></button>
                         </div>
-                    </div>
                     </div>';
-
-                    $contatore++;
-                    if($contatore == 3) {
-                        echo '</div></div>;';
-                        $contatore = 0;
-                    }
             }
         }
         ?>

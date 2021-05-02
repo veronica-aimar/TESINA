@@ -128,16 +128,21 @@ body {
   max-width: 70%;
 }
 
-h3 {
+/* ----------------------- CARTE ----------------------- */
+h1 {
   text-align: center;
   font-weight: bold;
   color: #046fab;
-  font-size: xx-large;
+  font-size: 3rem;
 }
 
-.row .card {
-  background-color: #cacfd1;
-  border: solid 2px #046fab;
+.card {
+  max-width: 30%;
+  border-radius: 10px;
+}
+
+.card img {
+  border-radius: 10px;
 }
 
 /*
