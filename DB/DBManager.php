@@ -43,10 +43,10 @@ class DBManager
     {
         $conn = self::connect();
         $sql = "SELECT * FROM tabella_farmaci;";
-        $rs = $conn->query($sql);
+        $rs = $conn->query($sql)->fetchAll();
 
         $conn = null;
-        return $rs->fetchAll();
+        return $rs;
     }
 
     public static function update($farmaco)

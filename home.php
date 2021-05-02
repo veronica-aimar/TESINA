@@ -4,6 +4,11 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./SRC/CSS/style.css">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
+    <!-- MDB 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css" rel="stylesheet"/> -->
     <title>HOME</title>
 </head>
 
@@ -30,15 +35,25 @@
     </div>
 
     <!-- OFFERTE -->
-    <div id="products">
-        <h3>NON PERDERE...</h3>
+    <h3>OFFERTE DEL GIORNO</h3>
+    <div class="row">
         <?php
         include('./DB/Farmaco.php');
         include('./DB/DBManager.php');
 
         $rs = DBManager::readAll();
         foreach ($rs as $farmaco) {
-            echo '<!-- Card -->
+            $contatore = 0;
+            $sconto = (($farmaco['prezzoVecchio'] - $farmaco['prezzo']) * 100 ) / $farmaco['prezzoVecchio'];
+            if ($sconto >= 50) {
+            
+                if($contatore == 0) {
+                    echo '<div class="container">
+                        <div class="row">';
+                }
+
+                echo '<div class="col-sm">
+                    <!-- Card -->
                     <div class="card">
                         <div class="view zoom overlay">
                             <img class="img-fluid w-100" src="' . $farmaco['img'] . '" alt="Sample">
@@ -46,14 +61,14 @@
                         </div>
 
                         <div class="card-body text-center">
-                            <h5>' . $farmaco['descrizione'] . '</h5>
+                            <h5>' . $farmaco['nomeProdotto'] . '</h5>
                             <!-- CATEGORIA -->
                             <p class="small text-muted text-uppercase mb-2">' . $farmaco['categoria'] . '</p>
                             <hr>
                             <h6 class="mb-3">
                                 <!-- PREZZO SCONTATO / VECCHIO PREZZO -->
                                 <span class="text-danger mr-1">€' . $farmaco['prezzo'] . '</span>
-                                <span class="text-grey"><s>€' . $farmaco['vecchioPrezzo'] . '</s></span>
+                                <span class="text-grey"><s>€' . $farmaco['prezzoVecchio'] . '</s></span>
                             </h6>
 
                             <button type="button" class="btn btn-primary btn-sm mr-1 mb-2">
@@ -67,7 +82,15 @@
                             </button>
 
                         </div>
+                    </div>
                     </div>';
+
+                    $contatore++;
+                    if($contatore == 3) {
+                        echo '</div></div>;';
+                        $contatore = 0;
+                    }
+            }
         }
         ?>
     </div>
