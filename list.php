@@ -5,7 +5,7 @@ include('./DB/ManagerFarmaco.php');
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['SearchButton'])) {
         $prodotto = $_GET['SearchBar'];
-        $rs = DBFarmaco::readAll($prodotto);
+        $lista_prodotti = DBFarmaco::readAll($prodotto);
     }
 }
 ?>
@@ -35,8 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     <div class="row">
         <?php
 
-        foreach ($rs as $item) {
-            $farmaco = new Farmaco($item['minsan'], $item['nomeProdotto'], $item['prezzo'], $item['prezzoVecchio'], $item['descrizione'], $item['img'], $item['linkSito'], $item['categoria']);
+        foreach ($lista_prodotti as $farmaco) {
             Farmaco::createCard($farmaco);
         }
         ?>

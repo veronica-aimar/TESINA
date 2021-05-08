@@ -42,11 +42,10 @@
         include('./DB/Farmaco.php');
         include('./DB/ManagerFarmaco.php');
 
-        $rs = DBFarmaco::readAll();
-        foreach ($rs as $item) {
-            $sconto = (($item['prezzoVecchio'] - $item['prezzo']) * 100) / $item['prezzoVecchio'];
+        $lista_prodotti = DBFarmaco::readAll();
+        foreach ($lista_prodotti as $farmaco) {
+            $sconto = (($farmaco->getPrezzoVecchio() - $farmaco->getPrezzo()) * 100) / $farmaco->getPrezzoVecchio();
             if ($sconto >= 50) {
-                $farmaco = new Farmaco($item['minsan'], $item['nomeProdotto'], $item['prezzo'], $item['prezzoVecchio'], $item['descrizione'], $item['img'], $item['linkSito'], $item['categoria']);
                 Farmaco::createCard($farmaco);
             }
         }

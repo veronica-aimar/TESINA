@@ -7,15 +7,17 @@ class Utente
     private $cognome;
     private $telefono;
     private $email;
+    private $username;
     private $password;
 
-    public function __construct($id, $nome, $cognome, $telefono, $email, $password)
+    public function __construct($id, $nome, $cognome, $telefono, $email, $username, $password)
     {
         $this->id = $id;
         $this->nome = $nome;
         $this->cognome = $cognome;
         $this->telefono = $telefono;
         $this->email = $email;
+        $this->username = $username;
         $this->password = $password;
     }
 
@@ -62,6 +64,15 @@ class Utente
     public function setEmail($email): void
     {
         $this->email = $email;
+    }
+
+    public function getUsername()
+    {
+        return $this->username;
+    }
+    public function setUsername($username): void
+    {
+        $this->username = $username;
     }
 
     public function getPassword()

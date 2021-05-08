@@ -11,6 +11,7 @@ class DBUtente
             . ", " . $farmaco->getCognome()
             . ", " . $farmaco->getTelefono()
             . ", " . $farmaco->getEmail()
+            . ", " . $farmaco->getUsername()
             . ", " . $farmaco->getPassword() . ");";
 
         $conn->exec($sql);
@@ -25,19 +26,31 @@ class DBUtente
         $sql = "SELECT * FROM tabella_utenti WHERE id=" . $id . ";";
         $rs = $conn->query($sql)->fetch();
 
-        $farmaco = new Farmaco($rs['id'], $rs['nome'], $rs['cognome'], $rs['telefono'], $rs['email'], $rs['password']);
+        $farmaco = new Farmaco($rs['id'], $rs['nome'], $rs['cognome'], $rs['telefono'], $rs['email'], $rs['username'], $rs['password']);
         $conn = null;
         return $farmaco;
     }
 
-    public static function readAll()
+    public static function readAll($filtro = '')
     {
         $conn = Connection::connect();
-        $sql = "SELECT * FROM tabella_utenti;";
+
+        $where = '';
+        if ($filtro != '') {
+            $where .= " WHERE username LIKE '%" . $filtro . "%'" . "OR nome LIKE %" . $filtro . "% OR cognome LIKE %" . $filtro . "%;";
+        }
+
+        $sql = "SELECT * FROM tabella_utenti " . $where;
         $rs = $conn->query($sql)->fetchAll();
 
+        $lista_utenti = [];
+        foreach($rs as $item) {
+            $utente = new Utente($item['id'], $item['nome'], $item['cognome'], $item['telefono'], $item['email'], $item['username'], $item['password']);
+            $lista_utenti[] = $utente;
+        }
+
         $conn = null;
-        return $rs;
+        return $lista_utenti;
     }
 
     public static function update($farmaco)
@@ -47,6 +60,7 @@ class DBUtente
             . ", cognome=" . $farmaco->getCognome()
             . ", telefono=" . $farmaco->getTelefono()
             . ", email=" . $farmaco->getEmail()
+            . ", username=" . $farmaco->getUsername()
             . ", password=" . $farmaco->getPassword()
             . " WHERE id=" . $farmaco->getId() . ";";
 

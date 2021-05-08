@@ -52,8 +52,14 @@ class DBFarmaco
         $sql = "SELECT * FROM tabella_farmaci" . $where;
         $rs = $conn->query($sql)->fetchAll();
 
+        $lista_prodotti = [];
+        foreach($rs as $item) {
+            $farmaco = new Farmaco($item['minsan'], $item['nomeProdotto'], $item['prezzo'], $item['prezzoVecchio'], $item['descrizione'], $item['img'], $item['linkSito'], $item['categoria']);
+            $lista_prodotti[] = $farmaco;
+        }
+
         $conn = null;
-        return $rs;
+        return $lista_prodotti;
     }
 
     public static function update($farmaco)
