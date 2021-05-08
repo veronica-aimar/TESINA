@@ -83,4 +83,15 @@ class Utente
     {
         $this->password = $password;
     }
+
+    public static function popUp($stringa)
+    {
+        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    ' . $stringa . '
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <script>$(".alert").alert("close")</script>';
+    }
 }

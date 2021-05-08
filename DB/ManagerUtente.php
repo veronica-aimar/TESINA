@@ -1,23 +1,33 @@
 <?php
-include ('Connection.php');
+include('Connection.php');
 
-class DBUtente
+class ManagerUtente
 {
-    public static function create($farmaco)
+    public static function create($utente)
     {
         $conn = Connection::connect();
-        $sql = "INSERT INTO tabella_utenti VALUES(NULL,"
-            . ", " . $farmaco->getNome()
-            . ", " . $farmaco->getCognome()
-            . ", " . $farmaco->getTelefono()
-            . ", " . $farmaco->getEmail()
-            . ", " . $farmaco->getUsername()
-            . ", " . $farmaco->getPassword() . ");";
 
-        $conn->exec($sql);
-        $minsan = $conn->lastInsertId();
+        // controllo se l'utente esiste già
+        $sql = "SELECT * FROM tabella_utenti WHERE username='" . $utente->getUsername()
+            . "' OR telefono=" . $utente->getTelefono()
+            . " OR email='" . $utente->getEmail()
+            . "' OR (nome='" . $utente->getNome() . "' AND cognome='" . $utente->getCognome() . "');";
+        $rs = $conn->query($sql)->fetch();
+        $id = -1;
+        if ($rs == null) {
+            $sql = "INSERT INTO tabella_utenti VALUES(NULL"
+                . ", '" . $utente->getNome()
+                . "', '" . $utente->getCognome()
+                . "', " . $utente->getTelefono()
+                . ", '" . $utente->getEmail()
+                . "', '" . $utente->getUsername()
+                . "', '" . $utente->getPassword() . "');";
+
+            $conn->exec($sql);
+            $id = $conn->lastInsertId();
+        }
         $conn = null;
-        return $minsan;
+        return $id;
     }
 
     public static function readById($id)
@@ -26,9 +36,22 @@ class DBUtente
         $sql = "SELECT * FROM tabella_utenti WHERE id=" . $id . ";";
         $rs = $conn->query($sql)->fetch();
 
-        $farmaco = new Farmaco($rs['id'], $rs['nome'], $rs['cognome'], $rs['telefono'], $rs['email'], $rs['username'], $rs['password']);
+        $utente = new Utente($rs['id'], $rs['nome'], $rs['cognome'], $rs['telefono'], $rs['email'], $rs['username'], $rs['password']);
         $conn = null;
-        return $farmaco;
+        return $utente;
+    }
+
+    public static function readUser($username, $password)
+    {
+        $conn = Connection::connect();
+        $sql = "SELECT * FROM tabella_utenti WHERE (username='"
+            . $username . "' OR email='"
+            . $username . "') AND password='"
+            . $password . "';";
+        $rs = $conn->query($sql)->fetch();
+
+        $conn = null;
+        return $rs;
     }
 
     public static function readAll($filtro = '')
@@ -44,7 +67,7 @@ class DBUtente
         $rs = $conn->query($sql)->fetchAll();
 
         $lista_utenti = [];
-        foreach($rs as $item) {
+        foreach ($rs as $item) {
             $utente = new Utente($item['id'], $item['nome'], $item['cognome'], $item['telefono'], $item['email'], $item['username'], $item['password']);
             $lista_utenti[] = $utente;
         }
@@ -53,16 +76,16 @@ class DBUtente
         return $lista_utenti;
     }
 
-    public static function update($farmaco)
+    public static function update($utente)
     {
         $conn = Connection::connect();
-        $sql = "UPDATE tabella_utenti SET nome=" . $farmaco->getNome()
-            . ", cognome=" . $farmaco->getCognome()
-            . ", telefono=" . $farmaco->getTelefono()
-            . ", email=" . $farmaco->getEmail()
-            . ", username=" . $farmaco->getUsername()
-            . ", password=" . $farmaco->getPassword()
-            . " WHERE id=" . $farmaco->getId() . ";";
+        $sql = "UPDATE tabella_utenti SET nome=" . $utente->getNome()
+            . ", cognome=" . $utente->getCognome()
+            . ", telefono=" . $utente->getTelefono()
+            . ", email=" . $utente->getEmail()
+            . ", username=" . $utente->getUsername()
+            . ", password=" . $utente->getPassword()
+            . " WHERE id=" . $utente->getId() . ";";
 
         $conn->exec($sql);
         $conn = null;
