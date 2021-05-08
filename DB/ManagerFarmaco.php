@@ -1,6 +1,7 @@
 <?php
+include('Connection.php');
 
-class DBManager
+class DBFarmaco
 {
     private static function connect()
     {
@@ -11,12 +12,12 @@ class DBManager
 
     public static function create($farmaco)
     {
-        $conn = self::connect();
+        $conn = Connection::connect();
         $sql = "INSERT INTO tabella_farmaci VALUES("
             . $farmaco->getMinsan()
             . ", " . $farmaco->getNomeProdotto()
             . ", " . $farmaco->getPrezzo()
-            . ", " . $farmaco->getVecchioPrezzo()
+            . ", " . $farmaco->getprezzoVecchio()
             . ", " . $farmaco->getDescrizione()
             . ", " . $farmaco->getImg()
             . ", " . $farmaco->getLinkSito()
@@ -30,7 +31,7 @@ class DBManager
 
     public static function readById($minsan)
     {
-        $conn = self::connect();
+        $conn = Connection::connect();
         $sql = "SELECT * FROM tabella_farmaci WHERE minsan=" . $minsan . ";";
         $rs = $conn->query($sql)->fetch();
 
@@ -39,10 +40,16 @@ class DBManager
         return $farmaco;
     }
 
-    public static function readAll()
+    public static function readAll($filtro = '')
     {
-        $conn = self::connect();
-        $sql = "SELECT * FROM tabella_farmaci;";
+        $conn = Connection::connect();
+
+        $where = '';
+        if ($filtro != '') {
+            $where .= " WHERE nomeProdotto LIKE '%" . $filtro . "%';";
+        }
+
+        $sql = "SELECT * FROM tabella_farmaci" . $where;
         $rs = $conn->query($sql)->fetchAll();
 
         $conn = null;
@@ -51,10 +58,10 @@ class DBManager
 
     public static function update($farmaco)
     {
-        $conn = self::connect();
+        $conn = Connection::connect();
         $sql = "UPDATE tabella_farmaci SET nomeProdotto=" . $farmaco->getNomeProdotto()
             . ", prezzo=" . $farmaco->getPrezzo()
-            . ", vecchioPrezzo=" . $farmaco->getVecchioPrezzo()
+            . ", prezzoVecchio=" . $farmaco->getprezzoVecchio()
             . ", descrizione=" . $farmaco->getDescrizione()
             . ", img=" . $farmaco->getImg()
             . ", linkSito=" . $farmaco->getLinkSito()
@@ -64,10 +71,10 @@ class DBManager
         $conn = null;
     }
 
-    public static function delete($farmaco)
+    public static function delete($minsan)
     {
-        $conn = self::connect();
-        $sql = "DELETE FROM tabella_farmaci WHERE minsan=" . $farmaco->getMinsan() . ";";
+        $conn = Connection::connect();
+        $sql = "DELETE FROM tabella_farmaci WHERE minsan=" . $minsan . ";";
 
         $conn->exec($sql);
         $conn = null;

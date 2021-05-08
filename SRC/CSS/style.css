@@ -106,12 +106,12 @@ body {
   color: #046fab;
 }
 
-.b1 .in1 .textBox button {
+.b1 .in1 .textBox #SearchButton {
   color: #046fab;
   margin-left: 5%;
 }
 
-.b1 .in1 .textBox button {
+.b1 .in1 .textBox #SearchButton {
   border: solid 1px #046fab;
   color: #046fab;
   font-weight: 600;
@@ -119,7 +119,7 @@ body {
   text-decoration: none;
 }
 
-.b1 .in1 .textBox button:hover {
+.b1 .in1 .textBox #SearchButton:hover {
   background: #046fab;
   color: #fff;
 }

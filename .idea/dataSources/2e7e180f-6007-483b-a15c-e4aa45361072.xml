@@ -1365,7 +1365,7 @@
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="499" parent="171" name="vecchioPrezzo">
+    <column id="499" parent="171" name="prezzoVecchio">
       <Position>4</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>

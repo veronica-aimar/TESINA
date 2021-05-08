@@ -5,18 +5,18 @@ class Farmaco
     private $minsan;
     private $nomeProdotto;
     private $prezzo;
-    private $vecchioPrezzo;
+    private $prezzoVecchio;
     private $descrizione;
     private $img;
     private $linkSito;
     private $categoria;
 
-    public function __construct($minsan, $nomeProdotto, $prezzo, $vecchioPrezzo, $descrizione, $img, $linkSito, $categoria)
+    public function __construct($minsan, $nomeProdotto, $prezzo, $prezzoVecchio, $descrizione, $img, $linkSito, $categoria)
     {
         $this->minsan = $minsan;
         $this->nomeProdotto = $nomeProdotto;
         $this->prezzo = $prezzo;
-        $this->vecchioPrezzo = $vecchioPrezzo;
+        $this->prezzoVecchio = $prezzoVecchio;
         $this->descrizione = $descrizione;
         $this->img = $img;
         $this->linkSito = $linkSito;
@@ -50,13 +50,13 @@ class Farmaco
         $this->prezzo = $prezzo;
     }
 
-    public function getVecchioPrezzo()
+    public function getprezzoVecchio()
     {
-        return $this->vecchioPrezzo;
+        return $this->prezzoVecchio;
     }
-    public function setVecchioPrezzo($vecchioPrezzo)
+    public function setprezzoVecchio($prezzoVecchio)
     {
-        $this->vecchioPrezzo = $vecchioPrezzo;
+        $this->prezzoVecchio = $prezzoVecchio;
     }
 
     public function getDescrizione()
@@ -93,5 +93,28 @@ class Farmaco
     public function setCategoria($categoria)
     {
         $this->categoria = $categoria;
+    }
+
+    public static function createCard($farmaco)
+    {
+        echo '<div class="card">
+                        <div class="view overlay z-depth-2 rounded">
+                            <a href="detail.php?minsan=' . $farmaco->getMinsan() . '">
+                                <img class="img-fluid w-100" src="' . $farmaco->getImg() . '" alt="' . $farmaco->getNomeProdotto() . '">
+                            </a>
+                        </div>
+
+                        <div class="text-center pt-4">
+                            <h6 class="mb-3">
+                                <span class="text-danger mr-1">&euro;' . $farmaco->getPrezzo() / 100 . '</span>
+                                <span class="text-grey"><s>&euro;' . $farmaco->getprezzoVecchio() / 100 . '</s></span>
+                            </h6>
+                            <h5>' . $farmaco->getNomeProdotto() . '</h5>
+                            <p class="small text-muted text-uppercase mb-2">' . $farmaco->getCategoria() . '</p>
+
+                            <button type="button" class="btn btn-primary btn-sm mr-1 mb-2">+ CARRELLO</button>
+                            <button type="button" class="btn btn-danger btn-sm px-3 mb-2"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>';
     }
 }
