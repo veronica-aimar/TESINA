@@ -46,7 +46,7 @@ class DBFarmaco
 
         $where = '';
         if ($filtro != '') {
-            $where .= " WHERE nomeProdotto LIKE '%" . $filtro . "%';";
+            $where .= " WHERE nomeProdotto LIKE '%" . $filtro . "%' OR categoria LIKE '%" . $filtro . "%';";
         }
 
         $sql = "SELECT * FROM tabella_farmaci" . $where;

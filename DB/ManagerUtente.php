@@ -37,7 +37,7 @@ class DBUtente
 
         $where = '';
         if ($filtro != '') {
-            $where .= " WHERE username LIKE '%" . $filtro . "%'" . "OR nome LIKE %" . $filtro . "% OR cognome LIKE %" . $filtro . "%;";
+            $where .= " WHERE username LIKE '%" . $filtro . "%'" . "OR nome LIKE' %" . $filtro . "%' OR cognome LIKE '%" . $filtro . "%';";
         }
 
         $sql = "SELECT * FROM tabella_utenti " . $where;
