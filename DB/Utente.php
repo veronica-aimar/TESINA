@@ -25,7 +25,7 @@ class Utente
     {
         return $this->id;
     }
-    public function setId($id): void
+    public function setId($id)
     {
         $this->id = $id;
     }
@@ -34,7 +34,7 @@ class Utente
     {
         return $this->nome;
     }
-    public function setNome($nome): void
+    public function setNome($nome)
     {
         $this->nome = $nome;
     }
@@ -43,7 +43,7 @@ class Utente
     {
         return $this->cognome;
     }
-    public function setCognome($cognome): void
+    public function setCognome($cognome)
     {
         $this->cognome = $cognome;
     }
@@ -52,7 +52,7 @@ class Utente
     {
         return $this->telefono;
     }
-    public function setTelefono($telefono): void
+    public function setTelefono($telefono)
     {
         $this->telefono = $telefono;
     }
@@ -61,7 +61,7 @@ class Utente
     {
         return $this->email;
     }
-    public function setEmail($email): void
+    public function setEmail($email)
     {
         $this->email = $email;
     }
@@ -70,7 +70,7 @@ class Utente
     {
         return $this->username;
     }
-    public function setUsername($username): void
+    public function setUsername($username)
     {
         $this->username = $username;
     }
@@ -79,19 +79,18 @@ class Utente
     {
         return $this->password;
     }
-    public function setPassword($password): void
+    public function setPassword($password)
     {
         $this->password = $password;
     }
 
     public static function popUp($stringa)
     {
-        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert" id="myModal">
                     ' . $stringa . '
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                </div>
-                <script>$(".alert").alert("close")</script>';
+                </div>';
     }
 }

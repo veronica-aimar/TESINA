@@ -1,12 +1,16 @@
 <?php
 include('Connection.php');
 
-class DBFarmaco
+class ManagerFarmaco
 {
     private static function connect()
     {
-        $conn = new PDO("sqlite:Farmaci.db");
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try{
+            $conn = new PDO("sqlite:Farmaci.db");
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
         return $conn;
     }
 
@@ -46,7 +50,8 @@ class DBFarmaco
 
         $where = '';
         if ($filtro != '') {
-            $where .= " WHERE nomeProdotto LIKE '%" . $filtro . "%' OR categoria LIKE '%" . $filtro . "%';";
+            $where .= ' WHERE nomeProdotto LIKE "%' . $filtro . '%" OR categoria LIKE "%' . $filtro . '%"';
+            echo $where;
         }
 
         $sql = "SELECT * FROM tabella_farmaci" . $where;

@@ -44,10 +44,11 @@ class ManagerUtente
     public static function readUser($username, $password)
     {
         $conn = Connection::connect();
-        $sql = "SELECT * FROM tabella_utenti WHERE (username='"
-            . $username . "' OR email='"
-            . $username . "') AND password='"
-            . $password . "';";
+        $sql = 'SELECT * FROM tabella_utenti WHERE (userName="'
+            . $username . '" OR email="'
+            . $username . '") AND password="'
+            . $password . '";';
+        
         $rs = $conn->query($sql)->fetch();
 
         $conn = null;
