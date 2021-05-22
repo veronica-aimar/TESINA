@@ -8,10 +8,9 @@ class Farmaco
     private $prezzoVecchio;
     private $descrizione;
     private $img;
-    private $linkSito;
     private $categoria;
 
-    public function __construct($minsan, $nomeProdotto, $prezzo, $prezzoVecchio, $descrizione, $img, $linkSito, $categoria)
+    public function __construct($minsan, $nomeProdotto, $prezzo, $prezzoVecchio, $descrizione, $img, $categoria)
     {
         $this->minsan = $minsan;
         $this->nomeProdotto = $nomeProdotto;
@@ -19,7 +18,6 @@ class Farmaco
         $this->prezzoVecchio = $prezzoVecchio;
         $this->descrizione = $descrizione;
         $this->img = $img;
-        $this->linkSito = $linkSito;
         $this->categoria = $categoria;
     }
 
@@ -75,15 +73,6 @@ class Farmaco
     public function setImg($img)
     {
         $this->img = $img;
-    }
-
-    public function getLinkSito()
-    {
-        return $this->linkSito;
-    }
-    public function setLinkSito($linkSito)
-    {
-        $this->linkSito = $linkSito;
     }
 
     public function getCategoria()

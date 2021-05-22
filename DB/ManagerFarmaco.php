@@ -17,16 +17,15 @@ class ManagerFarmaco
     public static function create($farmaco)
     {
         $conn = Connection::connect();
-        $sql = "INSERT INTO tabella_farmaci VALUES("
+        $sql = 'INSERT INTO tabella_farmaci VALUES('
             . $farmaco->getMinsan()
-            . ", " . $farmaco->getNomeProdotto()
-            . ", " . $farmaco->getPrezzo()
-            . ", " . $farmaco->getprezzoVecchio()
-            . ", " . $farmaco->getDescrizione()
-            . ", " . $farmaco->getImg()
-            . ", " . $farmaco->getLinkSito()
-            . ", " . $farmaco->getCategoria() . ");";
-
+            . ',"' . $farmaco->getNomeProdotto()
+            . '",' . $farmaco->getPrezzo()
+            . ',' . $farmaco->getprezzoVecchio()
+            . ',"' . $farmaco->getDescrizione()
+            . '","' . $farmaco->getImg()
+            . '","' . $farmaco->getCategoria() . '");';
+        echo $sql;
         $conn->exec($sql);
         $minsan = $conn->lastInsertId();
         $conn = null;
@@ -39,9 +38,13 @@ class ManagerFarmaco
         $sql = "SELECT * FROM tabella_farmaci WHERE minsan=" . $minsan . ";";
         $rs = $conn->query($sql)->fetch();
 
-        $farmaco = new Farmaco($rs['minsan'], $rs['nomeProdotto'], $rs['prezzo'], $rs['prezzoVecchio'], $rs['descrizione'], $rs['img'], $rs['linkSito'], $rs['categoria']);
+        $ritorno = false;
+        if($rs != false) {
+            $ritorno = new Farmaco($rs['minsan'], $rs['nomeProdotto'], $rs['prezzo'], $rs['prezzoVecchio'], $rs['descrizione'], $rs['img'], $rs['categoria']);
+        }
+        
         $conn = null;
-        return $farmaco;
+        return $ritorno;
     }
 
     public static function readAll($filtro = '')
@@ -59,7 +62,7 @@ class ManagerFarmaco
 
         $lista_prodotti = [];
         foreach($rs as $item) {
-            $farmaco = new Farmaco($item['minsan'], $item['nomeProdotto'], $item['prezzo'], $item['prezzoVecchio'], $item['descrizione'], $item['img'], $item['linkSito'], $item['categoria']);
+            $farmaco = new Farmaco($item['minsan'], $item['nomeProdotto'], $item['prezzo'], $item['prezzoVecchio'], $item['descrizione'], $item['img'], $item['categoria']);
             $lista_prodotti[] = $farmaco;
         }
 
@@ -75,7 +78,6 @@ class ManagerFarmaco
             . ", prezzoVecchio=" . $farmaco->getprezzoVecchio()
             . ", descrizione=" . $farmaco->getDescrizione()
             . ", img=" . $farmaco->getImg()
-            . ", linkSito=" . $farmaco->getLinkSito()
             . ", categoria=" . $farmaco->getCategoria() . " WHERE minsan=" . $farmaco->getMinsan() . ";";
 
         $conn->exec($sql);
