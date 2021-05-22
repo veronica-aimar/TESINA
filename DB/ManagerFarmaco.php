@@ -73,12 +73,12 @@ class ManagerFarmaco
     public static function update($farmaco)
     {
         $conn = Connection::connect();
-        $sql = "UPDATE tabella_farmaci SET nomeProdotto=" . $farmaco->getNomeProdotto()
-            . ", prezzo=" . $farmaco->getPrezzo()
-            . ", prezzoVecchio=" . $farmaco->getprezzoVecchio()
-            . ", descrizione=" . $farmaco->getDescrizione()
-            . ", img=" . $farmaco->getImg()
-            . ", categoria=" . $farmaco->getCategoria() . " WHERE minsan=" . $farmaco->getMinsan() . ";";
+        $sql = 'UPDATE tabella_farmaci SET nomeProdotto="' . $farmaco->getNomeProdotto()
+            . '", prezzo=' . $farmaco->getPrezzo()
+            . ', prezzoVecchio=' . $farmaco->getprezzoVecchio()
+            . ', descrizione="' . $farmaco->getDescrizione()
+            . '", img="' . $farmaco->getImg()
+            . '", categoria="' . $farmaco->getCategoria() . '" WHERE minsan=' . $farmaco->getMinsan() . ';';
 
         $conn->exec($sql);
         $conn = null;
