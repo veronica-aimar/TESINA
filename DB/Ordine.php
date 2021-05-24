@@ -4,7 +4,7 @@ class Ordine
 {
     private $idUtente;
     private $minsan;
-    private $tipoOrdine; // 0 -> like / 1 -> ordine
+    private $tipoOrdine; // 0 -> like / 1 -> carrello / 2 -> ordinato
 
     public function __construct($idUtente, $minsan, $tipoOrdine)
     {

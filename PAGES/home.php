@@ -1,3 +1,19 @@
+<?php
+    include('../DB/Farmaco.php');
+    include('../DB/Ordine.php');
+    include('../DB/ManagerFarmaco.php');
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if(isset($_POST['like'])) {
+            $like = new Ordine($_SESSION["idUtente"], $_POST['minsan'], 0);
+        }
+
+        if(isset($_POST['carrello'])) {
+            echo $_POST['minsan'];
+            $like = new Ordine($_SESSION["idUtente"], $_POST['minsan'], 1);
+        }
+    }
+?>
 <!doctype html>
 <html lang="it">
 
@@ -39,8 +55,6 @@
     <h1>OFFERTE DEL GIORNO</h1>
     <div class="row" id="carteProdotti">
         <?php
-        include('../DB/Farmaco.php');
-        include('../DB/ManagerFarmaco.php');
 
         $lista_prodotti = ManagerFarmaco::readAll();
         foreach ($lista_prodotti as $farmaco) {
