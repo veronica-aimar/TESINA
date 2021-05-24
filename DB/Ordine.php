@@ -1,6 +1,6 @@
 <?php
 
-class OrdiniUtente
+class Ordine
 {
     private $idUtente;
     private $minsan;

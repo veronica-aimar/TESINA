@@ -1,5 +1,7 @@
 <?php
-include('Connection.php');
+if(  !class_exists('Connection') ) {
+    include('Connection.php');
+}
 
 class ManagerUtente
 {
