@@ -1,10 +1,13 @@
 <?php
-include ('../DB/Utente.php');
-include ('../DB/ManagerUtente.php');
+include('../DB/Utente.php');
+include('../DB/ManagerOrdiniUtente.php');
+include('../DB/Farmaco.php');
+include('../DB/ManagerFarmaco.php');
 
 if($_SERVER['REQUEST_METHOD'] === 'GET') {
     // LETTURA ORDINI UTENTE
-    
+    $idUtente = $_GET['id'];
+    $lista_ordini = ManagerOrdiniUtente::readById($idUtente);
 }
 ?>
 
@@ -17,28 +20,17 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
     <title>YOUR PAGE</title>
 </head>
 <body>
-<!-- <table class="table">
-  <caption>List of users</caption>
-  <thead>
-    <tr>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-      <?php 
-        /* foreach($result as $item) {
-            echo '<tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>';
-        } */
-    
-    ?>
-  </tbody>
-</table> -->
+<h1>MI PIACE</h1>
+    <div class="row">
+        <?php
+            $lista_prodotti = ManagerFarmaco::readAll();
+            foreach ($lista_ordini as $ordine) {
+                if ($ordine->getTipoOrdine() == 0) {
+                    $farmaco = ManagerFarmaco::readById($ordine->getMinsan());
+                    Farmaco::createUserCard($farmaco);
+                }
+            }
+        ?>
+    </div>
 </body>
 </html>

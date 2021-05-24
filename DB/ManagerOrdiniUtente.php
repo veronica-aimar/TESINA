@@ -3,19 +3,13 @@ include('Connection.php');
 
 class ManagerOrdiniUtente
 {
-    private static function connect()
-    {
-        $conn = new PDO("sqlite:Farmaci.db");
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $conn;
-    }
-
     public static function create($ordineUtente)
     {
         $conn = Connection::connect();
         $sql = "INSERT INTO tabella_ordini VALUES("
-            . $farmaco->getIdUtente()
-            . ", " . $farmaco->getIdFarmaco() . ");";
+            . $ordineUtente->getIdUtente()
+            . ", " . $ordineUtente->getMinsan()
+            . ", " . $ordineUtente->getTipoOrdine(). ");";
 
         $conn->exec($sql);
         $minsan = $conn->lastInsertId();
@@ -29,9 +23,20 @@ class ManagerOrdiniUtente
         $sql = "SELECT * FROM tabella_ordini WHERE idUtente=" . $idUtente . ";";
         $rs = $conn->query($sql)->fetch();
 
-        $OrdiniUtente = new Ordine($rs['idUtente'], $rs['idFarmaco']);
+        $ordiniUtente = new Ordine($rs['idUtente'], $rs['idFarmaco']);
         $conn = null;
         return $ordiniUtente;
+    }
+
+    public static function update($ordineUtente)
+    {
+        $conn = Connection::connect();
+        $sql = "UPDATE tabella_utenti SET minsan=" . $ordineUtente->getMinsan()
+            . ", tipoOrdine=" . $ordineUtente->getTipoOrdine()
+            . " WHERE idUtente=" . $ordineUtente->getIdUtente() . ";";
+
+        $conn->exec($sql);
+        $conn = null;
     }
 
     public static function delete($idUtente, $idFarmaco)

@@ -14,7 +14,7 @@ body {
 /* ----------------------- NAVBAR ----------------------- */
 .navbar {
   position: fixed;
-  background-color: transparent;
+  background-color: #cacfd1;
   width: 100%;
   padding: 30px 0;
   top: 0;
@@ -142,12 +142,13 @@ h2 {
 }
 
 .card {
-  max-width: 30%;
+  max-width: 250px;
   border-radius: 10px;
 }
 
 .card img {
   border-radius: 10px;
+  max-width: 200px;
 }
 
 /* ----------------------- DETTAGLI ----------------------- */

@@ -37,7 +37,7 @@
 
     <!-- OFFERTE DEL GIORNO -->
     <h1>OFFERTE DEL GIORNO</h1>
-    <div class="row">
+    <div class="row" id="carteProdotti">
         <?php
         include('../DB/Farmaco.php');
         include('../DB/ManagerFarmaco.php');

@@ -3,12 +3,14 @@
 class OrdiniUtente
 {
     private $idUtente;
-    private $idFarmaco;
+    private $minsan;
+    private $tipoOrdine; // 0 -> like / 1 -> ordine
 
-    public function __construct($idUtente, $idFarmaco)
+    public function __construct($idUtente, $minsan, $tipoOrdine)
     {
         $this->idUtente = $idUtente;
-        $this->idFarmaco = $idFarmaco;
+        $this->minsan = $minsan;
+        $this->tipoOrdine = $tipoOrdine;
     }
 
     public function getIdUtente()
@@ -20,12 +22,21 @@ class OrdiniUtente
         $this->idUtente = $idUtente;
     }
 
-    public function getIdFarmaco()
+    public function getMinsan()
     {
-        return $this->idFarmaco;
+        return $this->minsan;
     }
-    public function setIdFarmaco($idFarmaco)
+    public function setMinsan($minsan)
     {
-        $this->idFarmaco = $idFarmaco;
+        $this->minsan = $minsan;
+    }
+
+    public function getTipoOrdine()
+    {
+        return $this->tipoOrdine;
+    }
+    public function setTipoOrdine($tipoOrdine)
+    {
+        $this->tipoOrdine = $tipoOrdine;
     }
 }

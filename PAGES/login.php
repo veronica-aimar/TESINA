@@ -7,11 +7,16 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
         $username = $_GET['username'];
         $password = $_GET['password'];
 
-        $rs = ManagerUtente::readUser($username, $password);
+        $rs = ManagerUtente::readUser($username);
         if ($rs == null) {
             Utente::popUp('Nome utente o password sbagliati');
         } else {
-            header('Location: userPage.php?id=' . $rs['id']);
+            $hash = password_hash($password, PASSWORD_BCRYPT);
+            if (password_verify($password, $hash)) {
+                header('Location: userPage.php?id=' . $rs['id']);
+            } else {
+                Utente::popUp('Nome utente o password sbagliati');
+            }
         }
     }
 }

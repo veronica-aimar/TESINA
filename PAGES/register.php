@@ -14,7 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($nome == '' || $cognome == '' || $email == '' || $username == '' || $password == '') {
             Utente::popUp('Compila tutti i campi');
         } else {
-            $utente = new Utente(-1, $nome, $cognome, $telefono, $email, $username, $password);
+            $hash = password_hash($password, PASSWORD_BCRYPT);
+            $utente = new Utente(-1, $nome, $cognome, $telefono, $email, $username, $hash);
             $id = ManagerUtente::create($utente);
             if ($id == -1) {
                 Utente::popUp('Utente già esistente');
