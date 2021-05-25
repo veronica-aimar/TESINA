@@ -9,7 +9,7 @@ $pagina = 1;
 while($amafarma = file_get_html('https://www.amafarma.com/farmaci-da-banco.html?p=' . $pagina)) {
     $listaProdotti = $amafarma->find('li[class="item product product-item"]');
     foreach($listaProdotti as $farmaco) {
-        $minsan = $farmaco->find('[data-product-sku]', 0)->attr['data-product-sku'];
+            $minsan = $farmaco->find('[data-product-sku]', 0)->attr['data-product-sku'];
         $prezzoNuovo = $farmaco->find('span[class="price"]', 0)->plaintext;
         
         $farmacoConfronto = ManagerFarmaco::readById($minsan);
