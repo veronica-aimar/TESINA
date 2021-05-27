@@ -13,6 +13,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
         } else {
             $hash = password_hash($password, PASSWORD_BCRYPT);
             if (password_verify($password, $hash)) {
+                
                 session_start();
                 $_SESSION["idUtente"] = $rs['id'];
 

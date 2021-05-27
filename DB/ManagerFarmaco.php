@@ -30,7 +30,7 @@ class ManagerFarmaco
         $rs = $conn->query($sql)->fetch();
 
         $ritorno = false;
-        if($rs == false) {
+        if($rs != false) {
             $ritorno = new Farmaco($rs['minsan'], $rs['nomeProdotto'], $rs['prezzo'], $rs['prezzoVecchio'], $rs['descrizione'], $rs['img'], $rs['categoria']);
         }
         $conn = null;

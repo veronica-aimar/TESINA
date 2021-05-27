@@ -16,6 +16,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
         }
     }
+} else {
+    if(isset($_POST['like'])) {
+        if( !isset($_SESSION["idUtente"]) ){
+            header("Location: login.php");
+        } else {
+            $like = new Ordine($_SESSION["idUtente"], $_POST['minsan'], 0);
+        }
+    }
+
+    // Aggiunta al carrello
+    if(isset($_POST['carrello'])) {
+        if( !isset($_SESSION["idUtente"]) ){
+            header("Location: login.php");
+        } else {
+            $carrello = new Ordine($_SESSION["idUtente"], $_POST['minsan'], 1);
+        }
+    }
 }
 ?>
 

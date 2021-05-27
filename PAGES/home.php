@@ -4,13 +4,22 @@
     include('../DB/ManagerFarmaco.php');
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Aggiunta ai like
         if(isset($_POST['like'])) {
-            $like = new Ordine($_SESSION["idUtente"], $_POST['minsan'], 0);
+            if( !isset($_SESSION["idUtente"]) ){
+                header("Location: login.php");
+            } else {
+                $like = new Ordine($_SESSION["idUtente"], $_POST['minsan'], 0);
+            }
         }
 
+        // Aggiunta al carrello
         if(isset($_POST['carrello'])) {
-            echo $_POST['minsan'];
-            $like = new Ordine($_SESSION["idUtente"], $_POST['minsan'], 1);
+            if( !isset($_SESSION["idUtente"]) ){
+                header("Location: login.php");
+            } else {
+                $carrello = new Ordine($_SESSION["idUtente"], $_POST['minsan'], 1);
+            }
         }
     }
 ?>

@@ -5,6 +5,25 @@ include('../DB/ManagerFarmaco.php');
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $minsan = $_GET['minsan'];
     $farmaco = ManagerFarmaco::readById($minsan);
+} else {
+    if(isset($_POST['compra'])) {
+        if( !isset($_SESSION["idUtente"]) ){
+            header("Location: login.php");
+        } else {
+            $compra = new Ordine($_SESSION["idUtente"], $_POST['minsan'], 0, $_POST['quantita']);
+            echo 'Dato salvato';
+        }
+    }
+
+    if(isset($_POST['carrello'])) {
+        if( !isset($_SESSION["idUtente"]) ){
+            header("Location: login.php");
+        } else {
+            
+            $carrello = new Ordine($_SESSION["idUtente"], $_POST['minsan'], 0, $_POST['quantita']);
+            echo 'Dato salvato';
+        }
+    }
 }
 ?>
 
@@ -19,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
     <!-- MDB 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css" rel="stylesheet"/> -->
-    <title><?php echo $farmaco->getNomeProdotto(); ?></title>
+    <title></title>
 </head>
 
 <body>
@@ -43,28 +62,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 <div class="col-md-6">
                     <h2><?php echo $farmaco->getNomeProdotto(); ?></h2>
                     <p class="mb-2 text-muted text-uppercase small"><?php echo $farmaco->getCategoria(); ?></p>
-                    <p><span class="mr-1"><strong><?php echo $farmaco->getPrezzo() / 100; ?></strong></span></p><?php echo $farmaco->getDescrizione(); ?></p>
+                    <p><span class="mr-1"><strong>PREZZO: &euro;<?php echo $farmaco->getPrezzo() / 100; ?></strong></span></p><?php echo $farmaco->getDescrizione(); ?></p>
                     <hr>
-                    <div class="table-responsive mb-2">
-                        <table class="table table-sm table-borderless">
-                            <tbody>
-                                <tr>
-                                    <td class="pl-0 pb-0 w-25">QUANTITA'</td>
-                                </tr>
-                                <tr>
-                                    <td class="pl-0">
-                                        <div class="def-number-input number-input safari_only mb-0">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus">-</button>
-                                            <input class="quantity" min="0" name="quantity" value="1" type="number">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus">+</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <button type="button" id="compra" class="btn btn-primary btn-md mr-1 mb-2">COMPRA ORA</button>
-                    <button type="button" id="carrello" class="btn btn-light btn-md mr-1 mb-2"><i class="fas fa-shopping-cart pr-2"></i>CARRELLO</button>
+                    <form action="detail.php" method="POST">
+                        <div class="table-responsive mb-2">
+                            <table class="table table-sm table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <td class="pl-0 pb-0 w-25">QUANTITA'</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pl-0">
+                                            <div class="def-number-input number-input safari_only mb-0">
+                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus" type="button">-</button>
+                                                <input class="quantita" min="0" name="quantita" id="quantita" value="1" type="number">
+                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" type="button">+</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <input type="submit" id="compra" class="btn btn-primary btn-md mr-1 mb-2" name="compra" id="compra" value="COMPRA ORA">
+                        <input type="submit" id="carrello" class="btn btn-light btn-md mr-1 mb-2 fa" name="carrello" id="carrello" value="&#xf07a;CARRELLO">
+                    </form>
                 </div>
             </div>
         </section>

@@ -19,7 +19,8 @@ class ManagerOrdini
             $sql = "INSERT INTO tabella_ordini VALUES("
                 . $ordine->getIdUtente()
                 . "', '" . $ordine->getMinsan()
-                . "', '" . $ordine->getTipoOrdine() . "');";
+                . "', '" . $ordine->getTipoOrdine()
+                . "', '" . $ordine->getQuantita() . "');";
 
             $conn->exec($sql);
             $idUtente = $conn->lastInsertId();
