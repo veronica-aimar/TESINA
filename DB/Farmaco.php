@@ -84,12 +84,13 @@ class Farmaco
         $this->categoria = $categoria;
     }
 
-    public static function createCard($farmaco)
+    // valore --> 0 (CARRELLO e LIKE) --> 1 (CARRELLO) --> 2 (LIKE)
+    public static function createCard($farmaco, $valore)
     {
         echo '<div class="card">
                     <a href="detail.php?minsan=' . $farmaco->getMinsan() . '">
                         <div class="view overlay z-depth-2 rounded">
-                            <img class="img-fluid w-100" src="' . $farmaco->getImg() . '" alt="' . $farmaco->getNomeProdotto() . '">
+                            <img class="img-fluid" max-width="150px" src="' . $farmaco->getImg() . '" alt="' . $farmaco->getNomeProdotto() . '">
                         </div>
                     </a>
 
@@ -101,10 +102,16 @@ class Farmaco
                         <h5>' . $farmaco->getNomeProdotto() . '</h5>
                         <p class="small text-muted text-uppercase mb-2">' . $farmaco->getCategoria() . '</p>
                         <form action="home.php" method="POST">
-                            <input type="text" hidden value="' . $farmaco->getMinsan() . '" name="minsan">
-                            <input type="submit" class="btn btn-primary btn-sm mr-1 mb-2" value="+ CARRELLO" name="carrello" id="carrello">
-                            <input type="submit" class="btn btn-danger btn-sm px-3 mb-2 fa" value="&#xf004;" name="like" id="like">
-                        </form>
+                            <input type="text" hidden value="' . $farmaco->getMinsan() . '" name="minsan">';
+                            
+                            if($valore == 1 || $valore == 0) {
+                                echo '<input type="submit" class="btn btn-primary btn-sm mr-1 mb-2" value="+ CARRELLO" name="carrello" id="carrello">';
+                            }
+                            if($valore == 2 || $valore == 0) {
+                                echo '<input type="submit" class="btn btn-danger btn-sm px-3 mb-2 fa" value="&#xf004;" name="like" id="like">';
+                            }
+
+                            echo '</form>
                     </div>
                 </div>';
     }

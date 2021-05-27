@@ -16,6 +16,12 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
             $header = 'From: aimarveronica1@gmail.com' . '\r\n' .
                 'X-Mailer: PHP/' . phpversion() . '\r\n' ;
 
+            // PROBLEMA NELL'INVIO
+            ini_set('SMTP','myserver');
+            ini_set('smtp_port',25);
+            ini_set('sendmail_from','aimarveronica1@gmail.com');
+            // PROBLEMA NELL'INVIO
+
             $invio = mail($email, $oggetto, $testo, $header);
             if($invio == true) {
                 Utente::popUp('Email inviata con successo!');

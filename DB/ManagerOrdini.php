@@ -2,7 +2,10 @@
 if(  !class_exists('Connection') ) {
     include('Connection.php');
 }
-include('Ordine.php');
+
+if(  !class_exists('Ordine') ) {
+    include('Ordine.php');
+}
 
 class ManagerOrdini
 {
@@ -10,17 +13,21 @@ class ManagerOrdini
     {
         $conn = Connection::connect();
 
-        $sql = "SELECT * FROM tabella_ordini WHERE idUtente=" . $utente->getUsername()
-            . " AND minsan=" . $utente->getTelefono()
-            . " AND tipoOrdine=" . $utente->getEmail() . ");";
+        $sql = "SELECT * FROM tabella_ordini WHERE idUtente=" . $ordine->getIdUtente()
+            . " AND minsan=" . $ordine->getMinsan()
+            . " AND tipoOrdine=" . $ordine->getTipoOrdine() . ";";
+        echo $sql;
+
         $rs = $conn->query($sql)->fetch();
         $id = -1;
+
         if ($rs == null) {
             $sql = "INSERT INTO tabella_ordini VALUES("
                 . $ordine->getIdUtente()
-                . "', '" . $ordine->getMinsan()
-                . "', '" . $ordine->getTipoOrdine()
-                . "', '" . $ordine->getQuantita() . "');";
+                . ", " . $ordine->getMinsan()
+                . ", " . $ordine->getTipoOrdine()
+                . ", " . $ordine->getQuantita() . ");";
+            echo $sql;
 
             $conn->exec($sql);
             $idUtente = $conn->lastInsertId();
@@ -39,7 +46,7 @@ class ManagerOrdini
 
         $lista_ordini = [];
         foreach ($rs as $item) {
-            $ordine = new Ordine($item['idUtente'], $item['minsan'], $item['tipoOrdine']);
+            $ordine = new Ordine($item['idUtente'], $item['minsan'], $item['tipoOrdine'], $item['quantita']);
             $lista_ordini[] = $ordine;
         }
 

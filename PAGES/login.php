@@ -13,9 +13,12 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
         } else {
             $hash = password_hash($password, PASSWORD_BCRYPT);
             if (password_verify($password, $hash)) {
-                
-                session_start();
-                $_SESSION["idUtente"] = $rs['id'];
+                        
+                if(!isset($_SESSION['idUtente'])) {
+                    session_start();
+                    $_SESSION["idUtente"] = $rs['id'];
+                    var_dump($_SESSION);
+                }
 
                 header('Location: userPage.php?id=' . $rs['id']);
             } else {

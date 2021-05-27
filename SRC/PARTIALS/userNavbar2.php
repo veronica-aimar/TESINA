@@ -3,8 +3,10 @@
     <div class="inner-width">
         <div class="navbar-menu">
             <a href="home.php">HOME</a>
-            <a href="register.php">REGISTRATI</a>
-            <a href="login.php">ACCEDI</a>
+            <a href="carrello.php?id=<?php echo $_SESSION['idUtente']; ?>">CARRELLO</a>
+            <form action="userPage.php" method="POST" style="display: inline;">
+                <input type="submit" class="btn btn-primary" value="ESCI" name="esci"> 
+            </form>
         </div>
     </div>
 </nav>
