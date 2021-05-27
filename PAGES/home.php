@@ -14,6 +14,7 @@
             } else {
                 $like = new Ordine($_SESSION["idUtente"], $_POST['minsan'], 0, 1);
                 ManagerOrdini::create($like);
+                header('Location: userPage.php?id=' . $_SESSION['idUtente']);
             }
         }
 
@@ -24,6 +25,17 @@
             } else {
                 $carrello = new Ordine($_SESSION["idUtente"], $_POST['minsan'], 1, 1);
                 ManagerOrdini::create($carrello);
+                header('Location: carrello.php?id=' . $_SESSION['idUtente']);
+            }
+        }
+
+        // Eliminazione
+        if(isset($_POST['cancella'])) {
+            if( !isset($_SESSION["idUtente"]) ){
+                header("Location: login.php");
+            } else {
+                ManagerOrdini::delete($_SESSION["idUtente"], $_POST['minsan']);
+                header('Location: home.php');
             }
         }
     }
@@ -82,7 +94,7 @@
         foreach ($lista_prodotti as $farmaco) {
             $sconto = (($farmaco->getPrezzoVecchio() - $farmaco->getPrezzo()) * 100) / $farmaco->getPrezzoVecchio();
             if ($sconto >= 50) {
-                Farmaco::createCard($farmaco, 0);
+                Farmaco::createCard($farmaco, 3);
             }
         }
         ?>

@@ -17,7 +17,6 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
                 if(!isset($_SESSION['idUtente'])) {
                     session_start();
                     $_SESSION["idUtente"] = $rs['id'];
-                    var_dump($_SESSION);
                 }
 
                 header('Location: userPage.php?id=' . $rs['id']);

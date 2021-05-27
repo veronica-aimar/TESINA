@@ -1,17 +1,22 @@
 <?php
 include('../DB/Farmaco.php');
+include('../DB/Ordine.php');
 include('../DB/ManagerFarmaco.php');
+include('../DB/ManagerOrdini.php');
+
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $minsan = $_GET['minsan'];
     $farmaco = ManagerFarmaco::readById($minsan);
 } else {
-    if(isset($_POST['compra'])) {
+    if(isset($_POST['like'])) {
         if( !isset($_SESSION["idUtente"]) ){
             header("Location: login.php");
         } else {
             $compra = new Ordine($_SESSION["idUtente"], $_POST['minsan'], 0, $_POST['quantita']);
-            echo 'Dato salvato';
+            ManagerOrdini::create($compra);
+            header('Location: userPage.php?id=' . $_SESSION['idUtente']);
         }
     }
 
@@ -19,9 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         if( !isset($_SESSION["idUtente"]) ){
             header("Location: login.php");
         } else {
-            
             $carrello = new Ordine($_SESSION["idUtente"], $_POST['minsan'], 0, $_POST['quantita']);
-            echo 'Dato salvato';
+            ManagerOrdini::create($carrello);
+            header('Location: carrello.php?id=' . $_SESSION['idUtente']);
         }
     }
 }
@@ -47,7 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     
     <?php 
-        session_start();
         if(!isset($_SESSION['idUtente'])) {
             include '../SRC/PARTIALS/navbar.php';
         } else {
@@ -92,7 +96,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                             </table>
                         </div>
 
-                        <input type="submit" id="compra" class="btn btn-primary btn-md mr-1 mb-2" name="compra" id="compra" value="COMPRA ORA">
+                        <input type="text" hidden value="<?php echo $farmaco->getMinsan(); ?>" name="minsan">
+                        <input type="submit" id="like" class="btn btn-primary btn-md mr-1 mb-2" name="like" id="like" value="PREFERITI">
                         <input type="submit" id="carrello" class="btn btn-light btn-md mr-1 mb-2 fa" name="carrello" id="carrello" value="&#xf07a;CARRELLO">
                     </form>
                 </div>

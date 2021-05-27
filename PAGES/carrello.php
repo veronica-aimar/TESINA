@@ -37,7 +37,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
             <?php
                 if($lista_like != null) {
                     echo '<br><br><br>
-                        <h1>MI PIACE</h1>
+                        <h1>CARRELLO</h1>
                         <div class="row" id="carteProdotti">';
 
                     foreach ($lista_like as $like) {
@@ -46,7 +46,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
                     }
                 } else {
                     echo '<div class="container">
-                            <h1>MI PIACE</h1>
+                            <h1>CARRELLO</h1>
                             <div class="container-fluid mt-100" id="empty">
                             <div class="row">
                                 <div class="col-md-12">

@@ -16,8 +16,8 @@ class ManagerOrdini
         $sql = "SELECT * FROM tabella_ordini WHERE idUtente=" . $ordine->getIdUtente()
             . " AND minsan=" . $ordine->getMinsan()
             . " AND tipoOrdine=" . $ordine->getTipoOrdine() . ";";
-        echo $sql;
 
+        echo $sql;
         $rs = $conn->query($sql)->fetch();
         $id = -1;
 
@@ -27,8 +27,8 @@ class ManagerOrdini
                 . ", " . $ordine->getMinsan()
                 . ", " . $ordine->getTipoOrdine()
                 . ", " . $ordine->getQuantita() . ");";
-            echo $sql;
 
+            echo $sql;
             $conn->exec($sql);
             $idUtente = $conn->lastInsertId();
         }

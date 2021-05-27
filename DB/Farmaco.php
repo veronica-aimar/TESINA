@@ -84,7 +84,7 @@ class Farmaco
         $this->categoria = $categoria;
     }
 
-    // valore --> 0 (CARRELLO e LIKE) --> 1 (CARRELLO) --> 2 (LIKE)
+    // valore --> 0 (CARRELLO e LIKE) --> 1 (CARRELLO) --> 2 (LIKE) --> 3 (no CESTINO)
     public static function createCard($farmaco, $valore)
     {
         echo '<div class="card">
@@ -104,11 +104,16 @@ class Farmaco
                         <form action="home.php" method="POST">
                             <input type="text" hidden value="' . $farmaco->getMinsan() . '" name="minsan">';
                             
-                            if($valore == 1 || $valore == 0) {
-                                echo '<input type="submit" class="btn btn-primary btn-sm mr-1 mb-2" value="+ CARRELLO" name="carrello" id="carrello">';
+                            if($valore == 1 || $valore == 0 || $valore == 3) {
+                                echo '<input type="submit" class="btn btn-primary btn-sm mr-1 mb-2 fa" value="&#xf07a;" name="carrello" id="carrello">';
                             }
-                            if($valore == 2 || $valore == 0) {
-                                echo '<input type="submit" class="btn btn-danger btn-sm px-3 mb-2 fa" value="&#xf004;" name="like" id="like">';
+                            
+                            if($valore == 2 || $valore == 0 || $valore == 3) {
+                                echo '<input type="submit" class="btn btn-info btn-sm px-2 mb-2 fa" value="&#xf004;" name="like" id="like"> ';
+                            }
+
+                            if($valore != 3) {
+                                echo '<input type="submit" class="btn btn-danger btn-sm px-2 mb-2 fa" value="&#xf2ed;" name="cancella" id="cancella">';
                             }
 
                             echo '</form>
