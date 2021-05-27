@@ -73,6 +73,10 @@ body {
   margin-left: 30px;
   transition: 0.4s linear;
   padding: 10px;
+  border: none;
+}
+
+.navbar input:last-child {
   border: solid 2px #046fab;
 }
 

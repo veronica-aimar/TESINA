@@ -3,15 +3,22 @@
     include('../DB/ManagerFarmaco.php');
     include('../DB/ManagerOrdini.php');
 
+    session_start();
+
     if($_SERVER['REQUEST_METHOD'] === 'GET') {
         // LETTURA ORDINI UTENTE
-        $idUtente = $_GET['id'];
-        $lista_like = ManagerOrdini::readAll($idUtente, 0);
+        $lista_like = ManagerOrdini::readAll($_SESSION['idUtente'], 0);
     } else {
-        // Chiusura della sessione
-        session_start();
-        session_destroy();
-        header('Location: home.php');
+        if(isset($_POST['esci'])){
+            // Chiusura della sessione
+            session_start();
+            session_destroy();
+            header('Location: home.php');
+        }
+
+        if(isset($_POST['catalogo'])) {
+            $lista_like = ManagerOrdini::readAll($_SESSION['idUtente'], 0);
+        }
     }
 ?>
 
@@ -31,12 +38,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     
     <?php
-        session_start();
         include('../SRC/PARTIALS/userNavbar2.php');
         
         if($lista_like != null) {
-            echo '<br><br><br>
-                <h1>MI PIACE</h1>
+            echo '<br><br>
+                <h1>PREFERITI</h1>
                 <div class="row" id="carteProdotti">';
 
             foreach ($lista_like as $like) {
@@ -47,12 +53,12 @@
             echo '</div>';
         } else {
             echo '<div class="container">
-                    <h1>MI PIACE</h1>
+                    <h1>PREFERITI</h1>
                     <div class="container-fluid mt-100" id="empty">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="col-sm-12 empty-cart-cls text-center"> <img src="../SRC/IMG/likeVuoti.png" width="130" height="130" class="img-fluid mb-4 mr-3">
-                                    <h3><strong>Non hai ancora aggiunto farmaci<br>ai post che ti piacciono</strong></h3>
+                                    <h3><strong>Non hai ancora aggiunto farmaci<br>tra i preferiti</strong></h3>
                                 </div>
                             </div>
                         </div>

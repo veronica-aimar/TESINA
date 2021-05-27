@@ -5,6 +5,7 @@
             <a href="home.php">HOME</a>
             <a href="carrello.php?id=<?php echo $_SESSION['idUtente']; ?>">CARRELLO</a>
             <form action="userPage.php" method="POST" style="display: inline;">
+                <input type="submit" class="btn btn-primary" value="CATALOGO" name="catalogo">
                 <input type="submit" class="btn btn-primary" value="ESCI" name="esci"> 
             </form>
         </div>

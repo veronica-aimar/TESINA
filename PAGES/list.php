@@ -1,5 +1,6 @@
 <?php
 include('../DB/Farmaco.php');
+include('../DB/Utente.php');
 include('../DB/ManagerFarmaco.php');
 
 session_start();
@@ -14,7 +15,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         } else {
             $lista_prodotti = ManagerFarmaco::readAll($prodotto);
             if($lista_prodotti == null) {
-                header('Location: home.php');
+                echo '<div class="container">
+                    <h1>OPS...</h1>
+                    <div class="container-fluid mt-100" id="empty">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-sm-12 empty-cart-cls text-center"> <img src="../SRC/IMG/likeVuoti.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                                    <h3><strong>Non è stato trovato nessun articolo<br>che possa soddisfare la tua ricerca</strong></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
             }
         }
     }
@@ -63,7 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     
     <?php
-        session_start();
         if(!isset($_SESSION['idUtente'])) {
             include '../SRC/PARTIALS/navbar.php';
         } else {
@@ -71,17 +82,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
     ?>
 
-    <br><br><br>
-    <h1>RISULTATI DELLA RICERCA</h1>
-    <br>
-    <div class="row" id="carteProdotti">
-        <?php
+    
+    <?php
+    if($lista_prodotti != null) {
+        echo '<br><br><br>
+            <h1>RISULTATI DELLA RICERCA</h1>
+            <br>
+            <div class="row" id="carteProdotti">';
 
         foreach ($lista_prodotti as $farmaco) {
             Farmaco::createCard($farmaco, 0);
         }
-        ?>
-    </div>
+
+        echo '</div>';
+    }
+    ?>
 </body>
 
 </html>

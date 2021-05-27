@@ -1,17 +1,17 @@
 <?php
-include('../DB/Farmaco.php');
-include('../DB/ManagerFarmaco.php');
-include('../DB/ManagerOrdini.php');
+    include('../DB/Farmaco.php');
+    include('../DB/ManagerFarmaco.php');
+    include('../DB/ManagerOrdini.php');
 
-if($_SERVER['REQUEST_METHOD'] === 'GET') {
-    // LETTURA ORDINI UTENTE
-    $idUtente = $_GET['id'];
-    $lista_like = ManagerOrdini::readAll($idUtente, 1);
-} else {
-    // Chiusura della sessione
-    session_destroy();
-    header('Location: home.php');
-}
+    if($_SERVER['REQUEST_METHOD'] === 'GET') {
+        // LETTURA ORDINI UTENTE
+        $idUtente = $_GET['id'];
+        $lista_like = ManagerOrdini::readAll($idUtente, 1);
+    } else {
+        // Chiusura della sessione
+        session_destroy();
+        header('Location: home.php');
+    }
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +36,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
     
             <?php
                 if($lista_like != null) {
-                    echo '<br><br><br>
+                    echo '<br><br>
                         <h1>CARRELLO</h1>
                         <div class="row" id="carteProdotti">';
 

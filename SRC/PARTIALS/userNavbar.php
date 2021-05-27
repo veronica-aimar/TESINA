@@ -3,8 +3,9 @@
     <div class="inner-width">
         <div class="navbar-menu">
             <a href="home.php">HOME</a>
-            <a href="userPage.php?id=<?php echo $_SESSION['idUtente']; ?>">LIKE</a>
+            <a href="userPage.php?id=<?php echo $_SESSION['idUtente']; ?>">PREFERITI</a>
             <form action="userPage.php" method="POST" style="display: inline;">
+                <input type="submit" class="btn btn-primary" value="CATALOGO" name="catalogo"> 
                 <input type="submit" class="btn btn-primary" value="ESCI" name="esci"> 
             </form>
         </div>
