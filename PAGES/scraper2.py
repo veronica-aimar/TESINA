@@ -5,9 +5,8 @@ headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 
 pagina = 1
 listaFarmaci = []
-arrayLink = []
-contatoreFarmaci = 1
 pagineTotali = 201
+listaInformazioniFarmaci = []
 
 # scorrimento delle pagine
 while pagina < pagineTotali:
@@ -17,7 +16,6 @@ while pagina < pagineTotali:
 
     for farmaco in listaFarmaci:
         link = farmaco.find("div", class_="thumbnail-container").findChildren("a")[0].get('href')
-        print(link)
         minsan = farmaco.find("div", class_="product-reference text-muted").findChildren("a")[0].text
         prezzoNuovo = farmaco.find("span", class_="product-price").text
         if farmaco.find("span", class_="regular-price text-muted") != None:
@@ -30,5 +28,19 @@ while pagina < pagineTotali:
         k = requests.get('https://www.topfarmacia.it/3366-farmaci-da-banco?page=' + str(pagina)).text
         dettagliFarmaco = BeautifulSoup(k,'html.parser')
         # descrizione = dettagliFarmaco.find("div", class_="col-md-6 col-product-info")
+
+        # parsificazione
+        prezzoVecchio = prezzoVecchio.replace(',', '')
+        prezzoNuovo = prezzoNuovo.replace(',', '')
+
+        prezzoVecchio = prezzoVecchio.replace('€', '')
+        prezzoNuovo = prezzoNuovo.replace('€', '')
+
+        #descrizione = descrizione.replace("\xa0", '')
+
+        # inserimento delle informazioni in dizionario e poi lista
+        informazioniFarmaco = {'minsan': minsan, 'nomeProdotto': nomeProdotto, 'prezzo': prezzoNuovo, 'prezzoVecchio': prezzoVecchio, 'descrizione': 'descrizione', 'img': img, 'categoria': categoria}
+        listaInformazioniFarmaci.append(informazioniFarmaco)
+        #print(informazioniFarmaco)
 
     pagina = pagina + 1

@@ -96,9 +96,11 @@ class Farmaco
 
                     <div class="text-center pt-4">
                         <h6 class="mb-3">
-                            <span class="text-danger mr-1">&euro;' . $farmaco->getPrezzo() / 100 . '</span>
-                            <span class="text-grey"><s>&euro;' . $farmaco->getprezzoVecchio() / 100 . '</s></span>
-                        </h6>
+                            <span class="text-danger mr-1">&euro;' . $farmaco->getPrezzo() / 100 . '</span>';
+                            if($farmaco->getprezzoVecchio() != -1) {
+                                echo '<span class="text-grey"><s>&euro;' . $farmaco->getprezzoVecchio() / 100 . '</s></span>';
+                            }
+                        '</h6>
                         <h5>' . $farmaco->getNomeProdotto() . '</h5>
                         <p class="small text-muted text-uppercase mb-2">' . $farmaco->getCategoria() . '</p>
                         <form action="home.php" method="POST">

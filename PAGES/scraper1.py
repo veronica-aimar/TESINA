@@ -5,8 +5,8 @@ headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 
 pagina = 1
 listaFarmaci = []
-arrayLink = []
 contatoreFarmaci = 1
+listaInformazioniFarmaci = []
 
 # lettura numero elementi
 k = requests.get('https://www.amafarma.com/farmaci-da-banco.html').text
@@ -41,4 +41,19 @@ while contatoreFarmaci < farmaciTotali:
         categoria = dettagliSito.find("span", class_="categoria_riferimento").findChildren("a")[0].text
         contatoreFarmaci = contatoreFarmaci + 1
 
+        # parsificazione
+        prezzoVecchio = prezzoVecchio.replace(',', '')
+        prezzoNuovo = prezzoNuovo.replace(',', '')
+
+        prezzoVecchio = prezzoVecchio.replace('€', '')
+        prezzoNuovo = prezzoNuovo.replace('€', '')
+
+        descrizione = descrizione.replace("\xa0", '')
+
+        # inserimento delle informazioni in dizionario e poi lista
+        informazioniFarmaco = {'minsan': minsan, 'nomeProdotto': nomeProdotto, 'prezzo': prezzoNuovo, 'prezzoVecchio': prezzoVecchio, 'descrizione': descrizione, 'img': img, 'categoria': categoria}
+        listaInformazioniFarmaci.append(informazioniFarmaco)
+
     pagina = pagina + 1
+
+print(listaInformazioniFarmaci)
