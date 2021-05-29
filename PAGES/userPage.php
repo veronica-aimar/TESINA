@@ -15,10 +15,6 @@
             session_destroy();
             header('Location: home.php');
         }
-
-        if(isset($_POST['catalogo'])) {
-            $lista_like = ManagerOrdini::readAll($_SESSION['idUtente'], 0);
-        }
     }
 ?>
 

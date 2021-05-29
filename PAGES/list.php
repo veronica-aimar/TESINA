@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     <div class="container-fluid mt-100" id="empty">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="col-sm-12 empty-cart-cls text-center"> <img src="../SRC/IMG/likeVuoti.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                                <div class="col-sm-12 empty-cart-cls text-center"> <img src="../SRC/IMG/nonTrovato.png" width="130" height="130" class="img-fluid mb-4 mr-3">
                                     <h3><strong>Non è stato trovato nessun articolo<br>che possa soddisfare la tua ricerca</strong></h3>
                                 </div>
                             </div>
@@ -50,6 +50,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         } else {
             $carrello = new Ordine($_SESSION["idUtente"], $_POST['minsan'], 1);
         }
+    }
+
+    if(isset($_POST['catalogo'])) {
+        $lista_prodotti = ManagerFarmaco::readAll('');
     }
 }
 ?>

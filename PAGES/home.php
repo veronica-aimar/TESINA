@@ -1,6 +1,7 @@
 <?php
     include('../DB/Farmaco.php');
     include('../DB/Ordine.php');
+    include('../DB/Utente.php');
     include('../DB/ManagerFarmaco.php');
     include('../DB/ManagerOrdini.php');
 
@@ -10,7 +11,8 @@
         // Aggiunta ai like
         if(isset($_POST['like'])) {
             if( !isset($_SESSION["idUtente"]) ){
-                header("Location: login.php");
+                Utente::popUp('Per poter aggiungere elementi ai preferiti devi autenticarti. Verrai reindirizzato alla pagina di login...');
+                header("Refresh: 3; URL=login.php");
             } else {
                 $like = new Ordine($_SESSION["idUtente"], $_POST['minsan'], 0, 1);
                 ManagerOrdini::create($like);
@@ -21,7 +23,8 @@
         // Aggiunta al carrello
         if(isset($_POST['carrello'])) {
             if( !isset($_SESSION["idUtente"]) ){
-                header("Location: login.php");
+                Utente::popUp('Per poter aggiungere elementi al carrello devi autenticarti. Verrai reindirizzato alla pagina di login...');
+                header("Refresh: 3; URL=login.php");
             } else {
                 $carrello = new Ordine($_SESSION["idUtente"], $_POST['minsan'], 1, 1);
                 ManagerOrdini::create($carrello);

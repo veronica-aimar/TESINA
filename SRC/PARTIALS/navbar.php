@@ -3,7 +3,7 @@
     <div class="inner-width">
         <div class="navbar-menu">
             <a href="home.php">HOME</a>
-            <form action="userPage.php" method="POST" style="display: inline;">
+            <form action="list.php" method="POST" style="display: inline;">
                 <input type="submit" class="btn btn-primary" value="CATALOGO" name="catalogo"> 
             </form>
             <a href="register.php">REGISTRATI</a>
