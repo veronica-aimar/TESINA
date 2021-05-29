@@ -11,27 +11,22 @@ headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 
 def scrapingProdotto(farmaco):
     nomeProdotto = farmaco.find("h3", class_="h3 product-title").findChildren("a")[0].text
-    link = farmaco.find("h3", class_="h3 product-title").findChildren("a")[0].get("href")
-    img = farmaco.find("div", class_="thumbnail-container").findChildren("a")[0].findChildren("img")[0].get("data-src")
+    img = farmaco.find("img", class_="js-lazy-product-image").get("data-src")
 
-    prezzoVecchio = farmaco.find("span", class_="regular-price text-muted")
-    if prezzoVecchio == None:
-        prezzoVecchio = -1
-    else:
+    prezzoVecchio = farmaco.find("span", class_="regular-price")
+    if prezzoVecchio != None:
         prezzoVecchio = prezzoVecchio.text
+    else:
+        prezzoVecchio = -1
     prezzoNuovo = farmaco.find("span", class_="product-price").text
 
-    k = requests.get(link).text
-    dettagliFarmaco = BeautifulSoup(k,'html.parser')
-
-    minsan = dettagliFarmaco.find("span", {"itemprop": "sku"}).text
-    
-    descrizione = dettagliFarmaco.find("div", {"id": "description"})
-    if descrizione == None:
-        descrizione = 'Descrizione da modificare'
+    minsan = farmaco.find("div", class_="product-reference text-muted").text
+    descrizione = farmaco.find("div", class_="product-description-short")
+    if descrizione != None:
+        descrizione = descrizione.text
     else:
-        descrizione = descrizione.findChildren("div", class_="rte-content")[0].text
-
+        descrizione = ''
+        
     # parsificazione
     prezzoNuovo = prezzoNuovo.replace("€", '')
     prezzoNuovo = prezzoNuovo.replace(",", '')
@@ -49,13 +44,12 @@ def scrapingProdotto(farmaco):
 
     # sezione critica
     lock.acquire()
-    print('Sezione critica')
     listaInformazioniFarmaci.append(informazioniFarmaco)
     lock.release()
 
 def invioRichieste(pagina):    
     # scorrimento delle pagine
-    k = requests.get('https://farmaciasavorani.it/farmaci/?page=' + str(pagina)).text
+    k = requests.get('https://farmaciasemplice.it/2085544-farmaci?page=' + str(pagina)).text
     soup=BeautifulSoup(k,'html.parser')
     listaFarmaci = soup.find_all("div", class_="js-product-miniature-wrapper")
 
@@ -64,7 +58,7 @@ def invioRichieste(pagina):
     print(pagina)
 
 def main():
-    numeroPagine = 37
+    numeroPagine = 189
     listaNumeroPagine = []
     for x in range(1, numeroPagine):
         listaNumeroPagine.append(str(x))

@@ -86,12 +86,6 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
                     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
-                <form action="list.php" method="GET">
-                    <div class="input-group">
-                        <input type="search" class="form-control rounded" placeholder="Cerca il prodotto..." aria-label="Search" aria-describedby="search-addon" id="SearchBar" name="SearchBar" />
-                        <input type="submit" class="btn btn-outline-primary" id="SearchButton" name="SearchButton" value="CERCA">
-                    </div>
-                </form>
             </div>
         </div>
         <hr>
