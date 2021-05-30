@@ -78,7 +78,7 @@ def main():
         listaNumeroPagine.append(str(x))
 
     with ThreadPoolExecutor(max_workers=10) as executor:
-        results = executor.map(invioRichieste, listaNumeroPagine)
+        results = executor.map(invioRichieste, '1')
 
 
 if __name__ == '__main__':

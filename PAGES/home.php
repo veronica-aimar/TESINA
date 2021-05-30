@@ -69,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // esecuzione dello scripy python
         $result = exec('python SCRAPER/scraper2.py', $array);
 
+        echo 'Dati ricevuti';
         foreach ($array as $item) {
             // decodifica del json ritornato dallo script py
             $informazioni = json_decode($item, true);
