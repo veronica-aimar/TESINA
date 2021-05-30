@@ -1,34 +1,32 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 include('../DB/Utente.php');
 include('../DB/ManagerUtente.php');
 
-if($_SERVER['REQUEST_METHOD'] === 'GET') {
+require_once "vendor/autoload.php";
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['inviaEmail'])) {
         $email = $_GET['email'];
-        
-        if($email == ''){
+
+        if ($email == '') {
             Utente::popUp('Email non valida');
         } else {
-            /* ---------------------- INVIO MAIL ---------------------- */
-            $oggetto = 'CAMBIA LA TUA PASSWORD';
-            $testo = 'Sembra che tu abbia dimenticato la password... Reimpostala ora!' . '\r\n' . 
-                ' Clicca sul seguente LINK"';
-            $header = 'From: aimarveronica1@gmail.com' . '\r\n' .
-                'X-Mailer: PHP/' . phpversion() . '\r\n' ;
-
-            // PROBLEMA NELL'INVIO
-            ini_set('SMTP','myserver');
-            ini_set('smtp_port',25);
-            ini_set('sendmail_from','aimarveronica1@gmail.com');
-            // PROBLEMA NELL'INVIO
-
-            $invio = mail($email, $oggetto, $testo, $header);
-            if($invio == true) {
-                Utente::popUp('Email inviata con successo!');
+            $utente = ManagerUtente::readUser($email);
+            if (is_bool($utente)) {
+                Utente::popUp('La mail non è presente tra gli utenti registrati... Ti stiamo reindirizzando al modulo di registrazione');
+                header('Refresh: 3; URL=register.php');
             } else {
-                Utente::popUp('Non siamo riusciti a mandare la mail');
+                $to_email = $email;
+                $subject = 'CAMBIA PASSWORD';
+                $message = '<p>Clicca sul seguente link per cambiare password</p> <br> <a href="cambiaPassword?id="' . $utente . '>CLICCA QUI</a>';
+                $headers = 'From: aimarveronica1@gmail.com';
+                mail($to_email, $subject, $message, $headers);
+                /* ---------------------- INVIO MAIL ---------------------- */
             }
-            /* ---------------------- INVIO MAIL ---------------------- */
         }
     }
 }

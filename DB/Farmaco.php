@@ -83,9 +83,9 @@ class Farmaco
     {
         $this->categoria = $categoria;
     }
-    
-    // valore --> 0 (CARRELLO e LIKE) --> 1 (CARRELLO) --> 2 (LIKE) --> 3 (no CESTINO)
-    public static function createCard($farmaco, $valore)
+
+    // valore --> 0 (CARRELLO e LIKE) --> 1 (CARRELLO) --> 2 (LIKE) --> 3 (no CESTINO) --> 4 (QUANTITA e no CARRELLO)
+    public static function createCard($farmaco, $valore, $quantita)
     {
         echo '<div class="card">
                 <a href="detail.php?minsan=' . $farmaco->getMinsan() . '">
@@ -97,27 +97,31 @@ class Farmaco
                 <div class="text-center pt-4">
                     <h6 class="mb-3">
                         <span class="text-danger mr-1">&euro;' . $farmaco->getPrezzo() / 100 . '</span>';
-                        if($farmaco->getprezzoVecchio() != -1) {
-                            echo '<span class="text-grey"><s>&euro;' . $farmaco->getprezzoVecchio() / 100 . '</s></span>';
-                        }
-                    echo '</h6>
-                    <h5>' . $farmaco->getNomeProdotto() . '</h5>
+        if ($farmaco->getprezzoVecchio() != -1) {
+            echo '<span class="text-grey"><s>&euro;' . $farmaco->getprezzoVecchio() / 100 . '</s></span>';
+        }
+        echo '</h6>
+                    <h5>';
+        if ($valore == 4) {
+            echo '<strong>' . $quantita . '</strong> x ';
+        }
+        echo $farmaco->getNomeProdotto() . '</h5>
                     <p class="small text-muted text-uppercase mb-2">' . $farmaco->getCategoria() . '</p>
                     <form action="home.php" method="POST">
                         <input type="text" hidden value="' . $farmaco->getMinsan() . '" name="minsan">';
-                        if($valore == 1 || $valore == 0 || $valore == 3) {
-                            echo '<input type="submit" class="btn btn-primary btn-sm mr-1 mb-2 fa" value="&#xf07a;" name="carrello" id="carrello">';
-                        }
-                        
-                        if($valore == 2 || $valore == 0 || $valore == 3) {
-                            echo '<input type="submit" class="btn btn-info btn-sm px-2 mb-2 fa" value="&#xf004;" name="like" id="like"> ';
-                        }
+        if ($valore == 1 || $valore == 0 || $valore == 3) {
+            echo '<input type="submit" class="btn btn-primary btn-sm mr-1 mb-2 fa" value="&#xf07a;" name="carrello" id="carrello">';
+        }
 
-                        if($valore != 3) {
-                            echo '<input type="submit" class="btn btn-danger btn-sm px-2 mb-2 fa" value="&#xf2ed;" name="cancella" id="cancella">';
-                        }
+        if ($valore == 2 || $valore == 0 || $valore == 3 || $valore == 4) {
+            echo '<input type="submit" class="btn btn-info btn-sm px-2 mb-2 fa" value="&#xf004;" name="like" id="like"> ';
+        }
 
-                        echo '</form>
+        if ($valore != 3) {
+            echo '<input type="submit" class="btn btn-danger btn-sm px-2 mb-2 fa" value="&#xf2ed;" name="cancella" id="cancella">';
+        }
+
+        echo '</form>
                 </div>
             </div>';
     }

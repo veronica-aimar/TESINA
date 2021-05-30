@@ -10,17 +10,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = $_POST['email'];
         $username = $_POST['username'];
         $password = $_POST['password'];
+        $password2 = $_POST['password2'];
 
         if ($nome == '' || $cognome == '' || $email == '' || $username == '' || $password == '') {
             Utente::popUp('Compila tutti i campi');
         } else {
+            if ($password != $password2) {
+                Utente::popUp('Le password devono coincidere!');
+            }
+
+            if (ManagerUtente::readUser($username) != false) {
+                Utente::popUp('Nome utente non disponibile');
+            }
+
+            $arrayPassword = str_split($password);
+            $lettereMaiuscole = false;
+            $lettereMinuscole = false;
+            foreach ($arrayPassword as $lettera) {
+                if (ctype_upper($lettera) == True) {
+                    $lettereMaiuscole = True;
+                }
+
+                if (ctype_lower($lettera) == True) {
+                    $lettereMinuscole = True;
+                }
+            }
+
+            if (strlen($password) < 8 || !preg_match('~[0-9]+~', $password) || !preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $password) || $lettereMaiuscole == False || $lettereMinuscole == False) {
+                Utente::popUp('La password deve essere lunga almeno 8 caratteri, deve contenere almeno una lettera maiuscola, una lettera minuscola, un numero e un carattere speciale');
+            }
+
+
             $hash = password_hash($password, PASSWORD_BCRYPT);
             $utente = new Utente(-1, $nome, $cognome, $telefono, $email, $username, $hash);
             $id = ManagerUtente::create($utente);
             if ($id == -1) {
                 Utente::popUp('Utente già esistente');
             } else {
-                Utente::popUp('Ben fatto!');
+                Utente::popUp('Ben fatto! Ti stiamo reindirizando alla pagina di login');
                 header('Refresh: 3; URL=login.php');
             }
         }
@@ -79,6 +106,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="form-outline mb-4">
             <input type="password" class="form-control" id="password" name="password" />
             <label class="form-label" for="password">Password</label>
+        </div>
+        <div class="form-outline mb-4">
+            <input type="password" class="form-control" id="password2" name="password2" />
+            <label class="form-label" for="password2">Ripeti la Password</label>
         </div>
 
         <input type="submit" class="btn btn-primary btn-block mb-4" value="REGISTRATI" id="registrati" name="registrati">

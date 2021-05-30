@@ -1,5 +1,5 @@
 <?php
-if(  !class_exists('Connection') ) {
+if (!class_exists('Connection')) {
     include('Connection.php');
 }
 
@@ -50,7 +50,7 @@ class ManagerUtente
         $sql = 'SELECT * FROM tabella_utenti WHERE userName="'
             . $username . '" OR email="'
             . $username . '";';
-        
+
         $rs = $conn->query($sql)->fetch();
 
         $conn = null;

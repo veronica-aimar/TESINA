@@ -1,9 +1,9 @@
 <?php
-if(  !class_exists('Connection') ) {
+if (!class_exists('Connection')) {
     include('Connection.php');
 }
 
-if(  !class_exists('Ordine') ) {
+if (!class_exists('Ordine')) {
     include('Ordine.php');
 }
 
@@ -17,7 +17,6 @@ class ManagerOrdini
             . " AND minsan=" . $ordine->getMinsan()
             . " AND tipoOrdine=" . $ordine->getTipoOrdine() . ";";
 
-        echo $sql;
         $rs = $conn->query($sql)->fetch();
         $id = -1;
 

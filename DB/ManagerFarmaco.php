@@ -1,5 +1,5 @@
 <?php
-if(  !class_exists('Connection') ) {
+if (!class_exists('Connection')) {
     include('Connection.php');
 }
 
@@ -8,6 +8,7 @@ class ManagerFarmaco
     public static function create($farmaco)
     {
         $conn = Connection::connect();
+
         $sql = 'INSERT INTO tabella_farmaci VALUES('
             . $farmaco->getMinsan()
             . ',"' . $farmaco->getNomeProdotto()
@@ -16,21 +17,21 @@ class ManagerFarmaco
             . ',"' . $farmaco->getDescrizione()
             . '","' . $farmaco->getImg()
             . '","' . $farmaco->getCategoria() . '");';
-        echo $sql;
+
         $conn->exec($sql);
-        $minsan = $conn->lastInsertId();
+
         $conn = null;
-        return $minsan;
     }
 
     public static function readById($minsan)
     {
         $conn = Connection::connect();
         $sql = "SELECT * FROM tabella_farmaci WHERE minsan=" . $minsan . ";";
+
         $rs = $conn->query($sql)->fetch();
 
         $ritorno = false;
-        if($rs != false) {
+        if ($rs != false) {
             $ritorno = new Farmaco($rs['minsan'], $rs['nomeProdotto'], $rs['prezzo'], $rs['prezzoVecchio'], $rs['descrizione'], $rs['img'], $rs['categoria']);
         }
         $conn = null;
@@ -50,7 +51,7 @@ class ManagerFarmaco
         $rs = $conn->query($sql)->fetchAll();
 
         $lista_prodotti = [];
-        foreach($rs as $item) {
+        foreach ($rs as $item) {
             $farmaco = new Farmaco($item['minsan'], $item['nomeProdotto'], $item['prezzo'], $item['prezzoVecchio'], $item['descrizione'], $item['img'], $item['categoria']);
             $lista_prodotti[] = $farmaco;
         }

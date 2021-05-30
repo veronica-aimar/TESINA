@@ -2,19 +2,19 @@
 include('../DB/Utente.php');
 include('../DB/ManagerUtente.php');
 
-if($_SERVER['REQUEST_METHOD'] === 'GET') {
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['accedi'])) {
         $username = $_GET['username'];
         $password = $_GET['password'];
 
         $rs = ManagerUtente::readUser($username);
-        if ($rs == null) {
+        if ($rs == false) {
             Utente::popUp('Nome utente o password sbagliati');
         } else {
             $hash = password_hash($password, PASSWORD_BCRYPT);
             if (password_verify($password, $hash)) {
-                        
-                if(!isset($_SESSION['idUtente'])) {
+
+                if (!isset($_SESSION['idUtente'])) {
                     session_start();
                     $_SESSION["idUtente"] = $rs['id'];
                 }
