@@ -4,7 +4,7 @@ include('../DB/ManagerFarmaco.php');
 include('../DB/ManagerOrdini.php');
 
 session_start();
-
+$lista_like = null;
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // LETTURA ORDINI UTENTE
     $lista_like = ManagerOrdini::readAll($_SESSION['idUtente'], 0);

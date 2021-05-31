@@ -106,7 +106,7 @@ class Farmaco
             echo '<strong>' . $quantita . '</strong> x ';
         }
         echo $farmaco->getNomeProdotto() . '</h5>
-                    <p class="small text-muted text-uppercase mb-2">' . $farmaco->getCategoria() . '</p>
+                    <p class="small text-muted text-uppercase mb-2">' . intval($farmaco->getCategoria()) . '</p>
                     <form action="home.php" method="POST">
                         <input type="text" hidden value="' . $farmaco->getMinsan() . '" name="minsan">';
         if ($valore == 1 || $valore == 0 || $valore == 3) {

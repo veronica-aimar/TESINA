@@ -28,7 +28,6 @@ class ManagerFarmaco
         $conn = Connection::connect();
         $sql = "SELECT * FROM tabella_farmaci WHERE minsan=" . $minsan . ";";
 
-        echo $sql;
         $rs = $conn->query($sql)->fetch();
 
         $ritorno = false;

@@ -1,12 +1,7 @@
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
 include('../DB/Utente.php');
 include('../DB/ManagerUtente.php');
-
-require_once "vendor/autoload.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['inviaEmail'])) {

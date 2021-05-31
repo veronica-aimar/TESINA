@@ -41,145 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Location: home.php');
         }
     }
-
-    if (isset($_POST['sito1'])) {
-        // esecuzione dello scripy python
-        $result = exec('python SCRAPER/scraper1.py', $array);
-
-        foreach ($array as $item) {
-            // decodifica del json ritornato dallo script py
-            $informazioni = json_decode($item, true);
-            $farmaco = new Farmaco($informazioni['minsan'], $informazioni['nomeProdotto'], $informazioni['prezzoNuovo'], $informazioni['prezzoVecchio'], $informazioni['descrizione'], $informazioni['img'], $informazioni['categoria']);
-
-            $confronto = ManagerFarmaco::readById($farmaco->getMinsan());
-            if ($confronto == false) {
-                ManagerFarmaco::create($farmaco);
-            } else {
-                if ($farmaco->getPrezzo() <= $confronto->getPrezzo()) {
-                    ManagerFarmaco::update($farmaco);
-                }
-            }
-        }
-
-        Utente::popUp('Farmaci aggiunti correttamente! Refresh della pagina in corso...');
-        // header('Refresh:3; URL: home.php');
-    }
-
-    if (isset($_POST['sito2'])) {
-        // esecuzione dello scripy python
-        $result = exec('python SCRAPER/scraper2.py', $array);
-
-        echo 'Dati ricevuti';
-        foreach ($array as $item) {
-            // decodifica del json ritornato dallo script py
-            $informazioni = json_decode($item, true);
-            $farmaco = new Farmaco($informazioni['minsan'], $informazioni['nomeProdotto'], $informazioni['prezzoNuovo'], $informazioni['prezzoVecchio'], $informazioni['descrizione'], $informazioni['img'], $informazioni['categoria']);
-
-            $confronto = ManagerFarmaco::readById($farmaco->getMinsan());
-            if ($confronto == false) {
-                ManagerFarmaco::create($farmaco);
-            } else {
-                if ($farmaco->getPrezzo() <= $confronto->getPrezzo()) {
-                    ManagerFarmaco::update($farmaco);
-                }
-            }
-        }
-
-        Utente::popUp('Farmaci aggiunti correttamente! Refresh della pagina in corso...');
-        // header('Refresh:3; URL: home.php');
-    }
-
-    if (isset($_POST['sito3'])) {
-        // esecuzione dello scripy python
-        $result = exec('python SCRAPER/scraper3.py', $array);
-
-        foreach ($array as $item) {
-            // decodifica del json ritornato dallo script py
-            $informazioni = json_decode($item, true);
-            $farmaco = new Farmaco($informazioni['minsan'], $informazioni['nomeProdotto'], $informazioni['prezzoNuovo'], $informazioni['prezzoVecchio'], $informazioni['descrizione'], $informazioni['img'], $informazioni['categoria']);
-
-            $confronto = ManagerFarmaco::readById($farmaco->getMinsan());
-            if ($confronto == false) {
-                ManagerFarmaco::create($farmaco);
-            } else {
-                if ($farmaco->getPrezzo() <= $confronto->getPrezzo()) {
-                    ManagerFarmaco::update($farmaco);
-                }
-            }
-        }
-
-        Utente::popUp('Farmaci aggiunti correttamente! Refresh della pagina in corso...');
-        // header('Refresh:3; URL: home.php');
-    }
-
-    if (isset($_POST['sito4'])) {
-        // esecuzione dello scripy python
-        $result = exec('python SCRAPER/scraper4.py', $array);
-
-        foreach ($array as $item) {
-            // decodifica del json ritornato dallo script py
-            $informazioni = json_decode($item, true);
-            $farmaco = new Farmaco($informazioni['minsan'], $informazioni['nomeProdotto'], $informazioni['prezzoNuovo'], $informazioni['prezzoVecchio'], $informazioni['descrizione'], $informazioni['img'], $informazioni['categoria']);
-
-            $confronto = ManagerFarmaco::readById($farmaco->getMinsan());
-            if ($confronto == false) {
-                ManagerFarmaco::create($farmaco);
-            } else {
-                if ($farmaco->getPrezzo() <= $confronto->getPrezzo()) {
-                    ManagerFarmaco::update($farmaco);
-                }
-            }
-        }
-
-        Utente::popUp('Farmaci aggiunti correttamente! Refresh della pagina in corso...');
-        // header('Refresh:3; URL: home.php');
-    }
-
-    if (isset($_POST['sito5'])) {
-        // esecuzione dello scripy python
-        $result = exec('python SCRAPER/scraper5.py', $array);
-
-        foreach ($array as $item) {
-            // decodifica del json ritornato dallo script py
-            $informazioni = json_decode($item, true);
-            $farmaco = new Farmaco($informazioni['minsan'], $informazioni['nomeProdotto'], $informazioni['prezzoNuovo'], $informazioni['prezzoVecchio'], $informazioni['descrizione'], $informazioni['img'], $informazioni['categoria']);
-
-            $confronto = ManagerFarmaco::readById($farmaco->getMinsan());
-            if ($confronto == false) {
-                ManagerFarmaco::create($farmaco);
-            } else {
-                if ($farmaco->getPrezzo() <= $confronto->getPrezzo()) {
-                    ManagerFarmaco::update($farmaco);
-                }
-            }
-        }
-
-        Utente::popUp('Farmaci aggiunti correttamente! Refresh della pagina in corso...');
-        // header('Refresh:3; URL: home.php');
-    }
-
-    if (isset($_POST['sito6'])) {
-        // esecuzione dello scripy python
-        $result = exec('python SCRAPER/scraper6.py', $array);
-
-        foreach ($array as $item) {
-            // decodifica del json ritornato dallo script py
-            $informazioni = json_decode($item, true);
-            $farmaco = new Farmaco($informazioni['minsan'], $informazioni['nomeProdotto'], $informazioni['prezzoNuovo'], $informazioni['prezzoVecchio'], $informazioni['descrizione'], $informazioni['img'], $informazioni['categoria']);
-
-            $confronto = ManagerFarmaco::readById($farmaco->getMinsan());
-            if ($confronto == false) {
-                ManagerFarmaco::create($farmaco);
-            } else {
-                if ($farmaco->getPrezzo() <= $confronto->getPrezzo()) {
-                    ManagerFarmaco::update($farmaco);
-                }
-            }
-        }
-
-        Utente::popUp('Farmaci aggiunti correttamente! Refresh della pagina in corso...');
-        // header('Refresh:3; URL: home.php');
-    }
 }
 ?>
 <!doctype html>
@@ -212,10 +73,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="b1">
         <div class="in1">
             <div class="textBox">
-                <h2>TITOLO</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+                <h2>ORIZZONTE SPERANZA</h2>
+                <p>La nostra speranza sta nel farvi raggiungere i vostri orizzonti di cura</p>
+                <form action="list.php" method="GET">
+                    <div class="input-group">
+                        <input type="search" class="form-control rounded" placeholder="Cerca il prodotto..." aria-label="Search" aria-describedby="search-addon" id="SearchBar" name="SearchBar" />
+                        <input type="submit" class="btn btn-outline-primary" id="SearchButton" name="SearchButton" value="CERCA">
+                    </div>
+                </form>
             </div>
         </div>
         <hr>
@@ -235,8 +100,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         ?>
     </div>
-
-    <?php include('../SRC/PARTIALS/footer.php'); ?>
 </body>
 
 </html>

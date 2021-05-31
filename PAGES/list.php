@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             <div class="row" id="carteProdotti">';
 
         foreach ($lista_prodotti as $farmaco) {
-            Farmaco::createCard($farmaco, 0, '');
+            Farmaco::createCard($farmaco, 3, '');
         }
 
         echo '</div>';
